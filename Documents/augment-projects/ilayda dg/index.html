@@ -128,7 +128,7 @@
                     <div class="japan-message">
                         <div class="message-card">
                             <h3>🌸 Japonya Sevgin</h3>
-                            <p>Japonya'ya olan tutkunu görünce seni daha çok seviyorum. Anime'leri, manga'ları, J-pop'u, ramen'i, sushi'yi sevmen... Senin bu güzel kültüre olan sevgin beni de etkiliyor.</p>
+                            <p>Japonya'ya olan tutkunu görünce seni daha çok seviyorum. Anime'leri ve ruhun gibi güzel olan japonya doğasını sevmen... Senin bu güzel kültüre olan sevgin beni de etkiliyor.</p>
                             <div class="japanese-elements">🍜 🍣 🎌 ⛩️ 🏮</div>
                         </div>
 
@@ -140,7 +140,7 @@
 
                         <div class="message-card special">
                             <h3>💕 Sana Sözüm</h3>
-                            <p>Bu mesafeler geçici. Yakında yanında olacağım ve birlikte hayallerini gerçekleştireceğiz. Japonya'da da, her yerde! Cosplay yapacağız, anime festivallere gideceğiz!</p>
+                            <p>Bu mesafeler geçici. Yakında yanında olacağım ve birlikte hayallerini gerçekleştireceğiz. Japonya'da da, her yerde! Seninle bu hayaller bana hayal değil hedef gibi geliyor.</p>
                             <div class="japanese-elements">👘 🎭 🎪 🎨 💫</div>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                     <div class="final-message">
                         <div class="birthday-wish" data-scroll data-scroll-speed="1">
                             <p>Canım sevgilim, bu özel günde uzakta olsam da kalbim seninle...</p>
-                            <p>2 ay önce tanıştığımızdan beri hayatım çok daha güzel. Sen benim için çok özelsin! 🌸</p>
+                            <p>Neredeysee 2 ay önce tanıştığımızdan beri hayatım çok daha güzel. Sen benim için çok özelsin! 🌸</p>
                         </div>
 
                         <div class="japan-promise" data-scroll data-scroll-speed="1.2">
@@ -495,24 +495,24 @@
             }
         }
 
-        // Initialize Birthday Cake
+        // Initialize Birthday Cake with emoji candles
         function initBirthdayCake() {
             const candlesContainer = document.getElementById('candles-container');
 
             // Clear any existing candles first
             candlesContainer.innerHTML = '';
 
-            // Create exactly 23 candles for İlayda's 23rd birthday
+            // Create exactly 23 emoji candles for İlayda's 23rd birthday
             for (let i = 0; i < 23; i++) {
                 const candle = document.createElement('div');
-                candle.className = 'candle lit';
-                candle.innerHTML = '<div class="flame"></div>';
+                candle.className = 'emoji-candle lit';
+                candle.innerHTML = '🕯️';
                 candle.setAttribute('data-candle-number', i + 1);
                 candlesContainer.appendChild(candle);
             }
 
             // Debug: Log candle count
-            console.log(`Created ${candlesContainer.children.length} candles for İlayda's 23rd birthday`);
+            console.log(`Created ${candlesContainer.children.length} emoji candles for İlayda's 23rd birthday`);
         }
 
         // Microphone blowing detection
@@ -576,7 +576,7 @@
 
             // Detect blowing (high volume)
             if (average > 30 && candlesBlown < 23) {
-                const candles = document.querySelectorAll('.candle.lit');
+                const candles = document.querySelectorAll('.emoji-candle.lit');
                 if (candles.length > 0) {
                     // Blow out 1-3 candles based on volume
                     const candlesToBlow = Math.min(Math.floor(average / 15), 3, candles.length);
@@ -696,7 +696,7 @@
             const cake = document.getElementById('birthday-cake');
             const instruction = document.getElementById('blow-instruction');
             const celebration = document.getElementById('celebration-message');
-            const candles = document.querySelectorAll('.candle');
+            const candles = document.querySelectorAll('.emoji-candle');
 
             // Hide instruction
             gsap.to(instruction, {
@@ -747,48 +747,66 @@
             }, groupDelay + 500);
         }
 
-        // Individual candle blow out with realistic animation
+        // Individual emoji candle blow out with realistic animation
         function blowOutCandle(candle, index) {
-            const flame = candle.querySelector('.flame');
-
-            if (flame) {
-                // Flame flicker before going out
-                gsap.to(flame, {
-                    scaleX: 1.5,
-                    scaleY: 0.5,
-                    rotation: 45,
+            if (candle && candle.classList.contains('lit')) {
+                // Candle flicker before going out
+                gsap.to(candle, {
+                    scale: 1.2,
+                    rotation: 15,
                     duration: 0.1,
                     yoyo: true,
-                    repeat: 3,
+                    repeat: 2,
                     onComplete: () => {
-                        // Flame disappears
-                        gsap.to(flame, {
-                            scale: 0,
-                            opacity: 0,
-                            duration: 0.2,
-                            ease: 'power2.out',
-                            onComplete: () => {
-                                candle.classList.remove('lit');
-                                candle.classList.add('blown');
-                                flame.style.display = 'none';
-                            }
-                        });
+                        // Change to blown out candle
+                        candle.innerHTML = '🕯️';
+                        candle.classList.remove('lit');
+                        candle.classList.add('blown');
 
-                        // Create smoke
-                        createAdvancedSmoke(candle);
-
-                        // Candle slight shake
+                        // Blow out animation
                         gsap.to(candle, {
-                            x: Math.random() * 4 - 2,
+                            scale: 0.8,
+                            opacity: 0.6,
                             duration: 0.3,
                             ease: 'power2.out',
                             onComplete: () => {
-                                gsap.to(candle, { x: 0, duration: 0.2 });
+                                // Add smoke effect
+                                createEmojiSmoke(candle);
                             }
                         });
                     }
                 });
             }
+        }
+
+        // Create emoji smoke effect
+        function createEmojiSmoke(candle) {
+            const smoke = document.createElement('div');
+            smoke.innerHTML = '💨';
+            smoke.style.position = 'absolute';
+            smoke.style.fontSize = '12px';
+            smoke.style.left = '50%';
+            smoke.style.top = '-10px';
+            smoke.style.transform = 'translateX(-50%)';
+            smoke.style.pointerEvents = 'none';
+            smoke.style.zIndex = '101';
+            candle.style.position = 'relative';
+            candle.appendChild(smoke);
+
+            gsap.to(smoke, {
+                y: -25,
+                x: Math.random() * 20 - 10,
+                rotation: Math.random() * 360,
+                scale: 0.5,
+                opacity: 0,
+                duration: 2,
+                ease: 'power1.out',
+                onComplete: () => {
+                    if (smoke.parentNode) {
+                        smoke.parentNode.removeChild(smoke);
+                    }
+                }
+            });
         }
 
         // Enhanced wind effect with multiple elements

@@ -861,34 +861,53 @@ html.has-scroll-dragging {
 
 .candles-container {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
-  height: 30px;
+  width: 320px;
+  height: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-end;
-  gap: 2px;
-  z-index: 100;
-  background: rgba(255, 0, 0, 0.1);
+  align-items: center;
+  gap: 4px;
+  z-index: 1000;
+  background: rgba(255, 255, 0, 0.3);
+  border: 2px solid red;
+  border-radius: 10px;
 }
 
-.candle {
-  position: relative;
-  width: 8px;
-  height: 30px;
-  background: linear-gradient(180deg,
-    #FFD700 0%,
-    #FFA500 30%,
-    #FF8C00 70%,
-    #FF6347 100%);
-  border-radius: 4px 4px 1px 1px;
-  box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.4),
-    inset 1px 0 2px rgba(255, 255, 255, 0.4);
-  border: 1px solid #FF8C00;
+/* Emoji Candles */
+.emoji-candle {
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: brightness(1.2);
+  text-shadow: 0 0 8px rgba(255, 165, 0, 1);
+  background: rgba(255, 0, 0, 0.2);
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid blue;
+}
+
+.emoji-candle.lit {
+  animation: candleFlicker 1s ease-in-out infinite alternate;
+}
+
+.emoji-candle.blown {
+  filter: grayscale(100%) brightness(0.5);
+  animation: none;
+}
+
+@keyframes candleFlicker {
+  0% {
+    transform: scale(1) rotate(-1deg);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: scale(1.05) rotate(1deg);
+    filter: brightness(1.4);
+  }
 }
 
 .candle::before {
