@@ -1,0 +1,14 @@
+{
+  "name": "ilayda-birthday",
+  "version": "1.0.0",
+  "description": "İlayda'nın 23. doğum günü için özel website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "start": "vercel dev"
+  },
+  "keywords": ["birthday", "love", "japan", "interactive"],
+  "author": "Arshia",
+  "license": "MIT"
+}

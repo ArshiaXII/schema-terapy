@@ -569,25 +569,32 @@
             const volumePercent = Math.min((average / 50) * 100, 100);
             volumeBar.style.width = volumePercent + '%';
 
-            // Detect blowing (high volume)
-            if (average > 30 && candlesBlown < 23) {
+            // Detect blowing (high volume) - Fixed version
+            if (average > 25 && candlesBlown < 23) {
                 const candlesOnCake = document.querySelector('.candles-on-cake');
-                const currentLit = parseInt(candlesOnCake.getAttribute('data-lit-candles') || '23');
 
-                if (currentLit > 0) {
-                    // Blow out 1-3 candles based on volume
-                    const candlesToBlow = Math.min(Math.floor(average / 15), 3, currentLit);
-                    const newLitCount = currentLit - candlesToBlow;
+                // Calculate how many candles to blow based on volume
+                const candlesToBlow = Math.min(Math.floor(average / 20), 2, 23 - candlesBlown);
+
+                if (candlesToBlow > 0) {
                     candlesBlown += candlesToBlow;
 
-                    // Update candles display
-                    const remainingCandles = '🕯️'.repeat(newLitCount) + '🕯'.repeat(23 - newLitCount);
-                    candlesOnCake.innerHTML = remainingCandles;
-                    candlesOnCake.setAttribute('data-lit-candles', newLitCount);
+                    // Update candles display with smooth animation
+                    gsap.to(candlesOnCake, {
+                        scale: 1.05,
+                        duration: 0.1,
+                        yoyo: true,
+                        repeat: 1,
+                        onComplete: () => {
+                            const litCandles = '🕯️'.repeat(23 - candlesBlown);
+                            const blownCandles = '🕯'.repeat(candlesBlown);
+                            candlesOnCake.innerHTML = litCandles + blownCandles;
 
-                    // Create wind effect
-                    createMiniWindEffect();
-                    createCakeSmokeEffect();
+                            // Create effects
+                            createMiniWindEffect();
+                            createCakeSmokeEffect();
+                        }
+                    });
                 }
             }
 
@@ -690,13 +697,13 @@
             playBirthdaySong();
         }
 
-        // New candle blowing system for cake-top candles
+        // Fixed candle blowing system
         function startBlowing() {
             const instruction = document.getElementById('blow-instruction');
             const celebration = document.getElementById('celebration-message');
             const candlesOnCake = document.querySelector('.candles-on-cake');
 
-            // Hide instruction
+            // Hide instruction with animation
             gsap.to(instruction, {
                 opacity: 0,
                 y: -20,
@@ -704,44 +711,77 @@
                 onComplete: () => instruction.style.display = 'none'
             });
 
-            // Create wind effect
+            // Create dramatic wind effect
             createWindEffect();
 
-            // Blow out candles gradually
-            let litCandles = 23;
-            const blowInterval = setInterval(() => {
-                if (litCandles > 0) {
-                    // Remove 1-3 candles each time
-                    const candlesToBlow = Math.min(Math.floor(Math.random() * 3) + 1, litCandles);
-                    litCandles -= candlesToBlow;
+            // Blow out candles in groups for better visual effect
+            let currentCandles = 23;
+            let blowStep = 0;
 
-                    // Update candles display
-                    const remainingCandles = '🕯️'.repeat(litCandles) + '🕯'.repeat(23 - litCandles);
-                    candlesOnCake.innerHTML = remainingCandles;
-                    candlesOnCake.setAttribute('data-lit-candles', litCandles);
+            const candleGroups = [5, 4, 6, 4, 4]; // Groups of candles to blow
 
-                    // Create smoke effect
-                    createCakeSmokeEffect();
+            function blowNextGroup() {
+                if (blowStep < candleGroups.length && currentCandles > 0) {
+                    const candlesToBlow = Math.min(candleGroups[blowStep], currentCandles);
+                    currentCandles -= candlesToBlow;
 
-                    // If all candles blown, show celebration
-                    if (litCandles === 0) {
-                        clearInterval(blowInterval);
-                        setTimeout(() => {
-                            celebration.style.display = 'block';
-                            gsap.from(celebration, {
-                                scale: 0,
-                                rotation: 360,
-                                duration: 1,
-                                ease: 'bounce.out'
-                            });
-                            createBirthdayConfetti();
-                            playBirthdaySong();
-                        }, 500);
-                    }
-                } else {
-                    clearInterval(blowInterval);
+                    // Create visual effect before changing candles
+                    gsap.to(candlesOnCake, {
+                        scale: 1.1,
+                        duration: 0.2,
+                        yoyo: true,
+                        repeat: 1,
+                        onComplete: () => {
+                            // Update candles display with smooth transition
+                            const litCandles = '🕯️'.repeat(currentCandles);
+                            const blownCandles = '🕯'.repeat(23 - currentCandles);
+                            candlesOnCake.innerHTML = litCandles + blownCandles;
+
+                            // Add smoke effect
+                            createCakeSmokeEffect();
+
+                            // Continue to next group
+                            blowStep++;
+                            if (currentCandles > 0) {
+                                setTimeout(blowNextGroup, 600);
+                            } else {
+                                // All candles blown - celebration time!
+                                setTimeout(showFinalCelebration, 800);
+                            }
+                        }
+                    });
                 }
-            }, 400); // Blow every 400ms
+            }
+
+            // Start blowing sequence
+            setTimeout(blowNextGroup, 500);
+        }
+
+        // Final celebration function
+        function showFinalCelebration() {
+            const celebration = document.getElementById('celebration-message');
+            const candlesOnCake = document.querySelector('.candles-on-cake');
+
+            // Make all candles gray/blown out
+            candlesOnCake.innerHTML = '🕯'.repeat(23);
+            candlesOnCake.style.filter = 'grayscale(100%) brightness(0.7)';
+
+            // Show celebration
+            celebration.style.display = 'block';
+            gsap.from(celebration, {
+                scale: 0,
+                rotation: 360,
+                duration: 1.2,
+                ease: 'bounce.out'
+            });
+
+            // Create massive confetti
+            createBirthdayConfetti();
+
+            // Play birthday song
+            setTimeout(() => {
+                playBirthdaySong();
+            }, 500);
         }
 
         // Create smoke effect for cake candles
