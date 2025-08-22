@@ -1,0 +1,18 @@
+# Bizim Şarkımız - Audio File Placeholder
+
+Bu dosyayı "bizim-sarkimiz.mp3" olarak değiştirin ve sevgilinizle olan özel şarkınızı buraya ekleyin.
+
+## Önerilen Format:
+- MP3 formatı
+- 128kbps veya daha yüksek kalite
+- Maksimum 5MB dosya boyutu
+- 30-60 saniye arası süre (tam şarkı da olabilir)
+
+## Nasıl Ekleyeceğiniz:
+1. Özel şarkınızı MP3 formatında hazırlayın
+2. Dosya adını "bizim-sarkimiz.mp3" olarak değiştirin
+3. Bu placeholder dosyasını silin
+4. MP3 dosyasını assets klasörüne ekleyin
+
+## Önemli Not:
+Eğer audio dosyası yoksa, website yine de çalışacak ve kalp patlaması animasyonu gösterilecektir.
