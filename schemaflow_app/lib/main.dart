@@ -38,15 +38,15 @@ class MySchemaApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ],
-      child: Consumer<LocaleProvider?>(
-        builder: (context, localeProvider, child) {
+      child: Consumer<LocaleProvider>(
+        builder: (context, LocaleProvider localeProvider, child) {
           return MaterialApp(
             title: 'MySchema',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
 
             // Localization configuration
-            locale: localeProvider?.locale,
+            locale: localeProvider.locale,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -114,7 +114,7 @@ class _AppInitializerState extends State<AppInitializer> {
     }
 
     return Consumer<UserProvider>(
-      builder: (context, userProvider, child) {
+      builder: (context, UserProvider userProvider, child) {
         if (userProvider.isLoading) {
           return const SplashScreen();
         }
@@ -180,7 +180,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: AppTheme.primaryGradient,
         ),
         child: Center(
@@ -213,7 +213,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                   
-                  const SizedBox(height: AppTheme.spacingXL),
+                  SizedBox(height: AppTheme.spacingXL),
                   
                   // App name
                   Text(
@@ -224,7 +224,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                   
-                  const SizedBox(height: AppTheme.spacingS),
+                  SizedBox(height: AppTheme.spacingS),
                   
                   // Tagline
                   Text(
@@ -234,7 +234,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                   
-                  const SizedBox(height: AppTheme.spacingXXL),
+                  SizedBox(height: AppTheme.spacingXXL),
                   
                   // Loading indicator
                   SizedBox(

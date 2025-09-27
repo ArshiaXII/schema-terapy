@@ -329,3 +329,8 @@ schemaflow_app/.dart_tool/
 schemaflow_app/.flutter-plugins
 schemaflow_app/.flutter-plugins-dependencies
 schemaflow_app/build/
+
+# Allow Flutter source in schemaflow_app to be tracked (override global lib/ ignore)
+!schemaflow_app/lib/
+!schemaflow_app/lib/**
+
