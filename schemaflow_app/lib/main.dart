@@ -93,9 +93,13 @@ class _AppInitializerState extends State<AppInitializer> {
 
       // Initialize user session
       final userProvider = Provider.of<UserProvider>(context, listen: false);
-      // Initialize RevenueCat (replace with your real iOS Public SDK key)
+      // Initialize RevenueCat (prefer providing key via --dart-define=RC_IOS_PUBLIC_SDK_KEY)
+      const rcKey = String.fromEnvironment(
+        'RC_IOS_PUBLIC_SDK_KEY',
+        defaultValue: 'RC_IOS_PUBLIC_SDK_KEY',
+      );
       try {
-        await RevenueCatService.instance.init(apiKey: 'RC_IOS_PUBLIC_SDK_KEY');
+        await RevenueCatService.instance.init(apiKey: rcKey);
       } catch (e) {
         debugPrint('RevenueCat init failed: $e');
       }
