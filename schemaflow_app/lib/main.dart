@@ -11,9 +11,11 @@ import 'screens/home_screen.dart';
 import 'screens/i18n_test_screen.dart';
 import 'l10n/app_localizations.dart';
 
+import 'services/revenuecat_service.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -23,7 +25,7 @@ void main() {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
-  
+
   runApp(const MySchemaApp());
 }
 
@@ -91,6 +93,13 @@ class _AppInitializerState extends State<AppInitializer> {
 
       // Initialize user session
       final userProvider = Provider.of<UserProvider>(context, listen: false);
+      // Initialize RevenueCat (replace with your real iOS Public SDK key)
+      try {
+        await RevenueCatService.instance.init(apiKey: 'RC_IOS_PUBLIC_SDK_KEY');
+      } catch (e) {
+        debugPrint('RevenueCat init failed: $e');
+      }
+
       await userProvider.initializeUser();
 
       // Add any other initialization logic here
@@ -139,7 +148,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> 
+class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -152,21 +161,21 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
       ),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: const Interval(0.2, 0.8, curve: Curves.elasticOut),
       ),
     );
-    
+
     _animationController.forward();
   }
 
@@ -212,9 +221,9 @@ class _SplashScreenState extends State<SplashScreen>
                       color: Colors.white,
                     ),
                   ),
-                  
+
                   SizedBox(height: AppTheme.spacingXL),
-                  
+
                   // App name
                   Text(
                     AppLocalizations.of(context)?.appTitle ?? 'MySchema',
@@ -223,9 +232,9 @@ class _SplashScreenState extends State<SplashScreen>
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   SizedBox(height: AppTheme.spacingS),
-                  
+
                   // Tagline
                   Text(
                     AppLocalizations.of(context)?.appTagline ?? 'Your Path to Self-Understanding',
@@ -233,9 +242,9 @@ class _SplashScreenState extends State<SplashScreen>
                       color: Colors.white.withOpacity(0.9),
                     ),
                   ),
-                  
+
                   SizedBox(height: AppTheme.spacingXXL),
-                  
+
                   // Loading indicator
                   SizedBox(
                     width: 40,

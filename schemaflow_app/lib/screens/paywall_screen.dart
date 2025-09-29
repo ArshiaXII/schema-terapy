@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../core/providers/user_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../services/revenuecat_service.dart';
 
 import 'results_screen.dart';
 
@@ -102,28 +103,25 @@ class _PaywallScreenState extends State<PaywallScreen>
   }
 
   Future<void> _purchaseAnalysis() async {
-    setState(() {
-      _isPurchasing = true;
-    });
-
+    setState(() => _isPurchasing = true);
     try {
-      // Simulate purchase process - this will be replaced with RevenueCat integration
-      await Future.delayed(const Duration(seconds: 2));
+      final unlocked = await RevenueCatService.instance.presentPaywallAndCheck();
+      if (!mounted) return;
 
-      print('💳 Processing one-time purchase for full analysis...');
-      print('📊 Schema: ${widget.dominantSchema}');
-
-      // TODO: Integrate with RevenueCat for actual purchase
-      // For now, simulate successful purchase
-
-      if (mounted) {
-        // Navigate to results screen with the full analysis
+      if (unlocked) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ResultsScreen(
               dominantSchema: widget.dominantSchema,
               fullAnalysisText: widget.fullAnalysisText,
             ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${AppLocalizations.of(context)!.paywallPurchaseFailedPrefix}Cancelled'),
+            backgroundColor: AppTheme.errorRed,
           ),
         );
       }
@@ -138,9 +136,7 @@ class _PaywallScreenState extends State<PaywallScreen>
       }
     } finally {
       if (mounted) {
-        setState(() {
-          _isPurchasing = false;
-        });
+        setState(() => _isPurchasing = false);
       }
     }
   }
@@ -633,11 +629,24 @@ class _PaywallScreenState extends State<PaywallScreen>
 
   Widget _buildRestorePurchase() {
     return TextButton(
-      onPressed: () {
-        // TODO: Implement restore purchase
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.paywallRestoreSoon)),
-        );
+      onPressed: () async {
+        final restored = await RevenueCatService.instance.restorePurchasesAndCheck();
+        if (!mounted) return;
+        if (restored) {
+          // Optionally navigate directly to results if entitlement now active
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => ResultsScreen(
+                dominantSchema: widget.dominantSchema,
+                fullAnalysisText: widget.fullAnalysisText,
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(AppLocalizations.of(context)!.paywallRestoreSoon)),
+          );
+        }
       },
       style: AppTheme.textButtonStyle,
       child: Text(
