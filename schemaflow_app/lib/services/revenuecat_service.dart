@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 
 /// Centralized RevenueCat integration
 class RevenueCatService {
@@ -32,23 +31,6 @@ class RevenueCatService {
     }
     final info = await Purchases.getCustomerInfo();
     return info.entitlements.active[entitlementId] != null;
-  }
-
-  /// Shows the default RevenueCat Paywall UI (based on current offering).
-  /// Returns true if the expected entitlement is active after dismissal.
-  Future<bool> presentPaywallAndCheck({String entitlementId = defaultEntitlementId}) async {
-    if (kIsWeb) {
-      // For web screenshots, simulate user cancelling
-      return false;
-    }
-    try {
-      await PurchasesUI.presentPaywall();
-      // Check entitlements after paywall dismissal
-      final info = await Purchases.getCustomerInfo();
-      return info.entitlements.active[entitlementId] != null;
-    } catch (_) {
-      return false;
-    }
   }
 
   /// Attempts to restore previous purchases. Returns true if entitlement is active.
