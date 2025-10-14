@@ -122,12 +122,12 @@ class _PaywallScreenState extends State<PaywallScreen>
         return;
       }
 
-      // Show message that purchase should be done through App Store
+      // For now, just show that purchase is not available in this version
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.paywallPurchaseNote),
-          backgroundColor: AppTheme.primaryNavy,
-          duration: const Duration(seconds: 3),
+        const SnackBar(
+          content: Text('Purchase functionality will be available soon'),
+          backgroundColor: AppTheme.accentTeal,
+          duration: Duration(seconds: 2),
         ),
       );
     } catch (e) {
