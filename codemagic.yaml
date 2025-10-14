@@ -23,6 +23,8 @@ workflows:
           flutter clean
           rm -rf ios/Pods
           rm -rf ios/Podfile.lock
+          rm -rf .dart_tool
+          rm -rf build
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
