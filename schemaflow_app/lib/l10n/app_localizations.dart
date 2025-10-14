@@ -629,7 +629,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallConfirmCta.
   ///
   /// In en, this message translates to:
-  /// **'Confirm Purchase and See My Full Report'**
+  /// **'Get My Full Report'**
   String get paywallConfirmCta;
 
   /// No description provided for @paywallRestorePurchase.
@@ -689,7 +689,7 @@ abstract class AppLocalizations {
   /// No description provided for @teaserUnlockNote.
   ///
   /// In en, this message translates to:
-  /// **'Unlock to read the complete analysis'**
+  /// **'Unlock to read more'**
   String get teaserUnlockNote;
 
   /// No description provided for @teaserCtaHeading.

@@ -298,7 +298,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallRecommendedBadge => 'RECOMMENDED';
 
   @override
-  String get paywallConfirmCta => 'Confirm Purchase and See My Full Report';
+  String get paywallConfirmCta => 'Get My Full Report';
 
   @override
   String get paywallRestorePurchase => 'Restore Purchase';
@@ -331,7 +331,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get teaserSectionTitle => 'Analysis Preview';
 
   @override
-  String get teaserUnlockNote => 'Unlock to read the complete analysis';
+  String get teaserUnlockNote => 'Unlock to read more';
 
   @override
   String get teaserCtaHeading => 'This is just the beginning';

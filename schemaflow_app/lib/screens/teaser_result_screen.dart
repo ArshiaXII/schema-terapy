@@ -345,7 +345,10 @@ class _TeaserResultScreenState extends State<TeaserResultScreen>
               const SizedBox(height: AppTheme.spacingM),
 
               Container(
-                padding: const EdgeInsets.all(AppTheme.spacingM),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppTheme.spacingM,
+                  vertical: AppTheme.spacingS,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -358,18 +361,24 @@ class _TeaserResultScreenState extends State<TeaserResultScreen>
                   ),
                 ),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(
                       CupertinoIcons.lock_fill,
                       color: AppTheme.textSecondary,
-                      size: 16,
+                      size: 14,
                     ),
-                    const SizedBox(width: AppTheme.spacingS),
-                    Text(
-                      AppLocalizations.of(context)!.teaserUnlockNote,
-                      style: AppTheme.bodyMedium.copyWith(
-                        color: AppTheme.textSecondary,
-                        fontStyle: FontStyle.italic,
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(context)!.teaserUnlockNote,
+                        style: AppTheme.bodyMedium.copyWith(
+                          color: AppTheme.textSecondary,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 13,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
                     ),
                   ],
@@ -482,23 +491,29 @@ class _TeaserResultScreenState extends State<TeaserResultScreen>
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
               CupertinoIcons.lock_open_fill,
               size: 20,
             ),
             const SizedBox(width: AppTheme.spacingS),
-            Text(
-              AppLocalizations.of(context)!.paywallUnlockCta(AppLocalizations.of(context)!.paywallPrice),
-              style: isSmallScreen
-                ? AppTheme.bodyLarge.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )
-                : AppTheme.headlineSmall.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context)!.paywallUnlockCta(AppLocalizations.of(context)!.paywallPrice),
+                style: isSmallScreen
+                  ? AppTheme.bodyLarge.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )
+                  : AppTheme.headlineSmall.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
           ],
         ),

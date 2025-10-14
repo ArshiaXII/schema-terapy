@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode; // for web query override
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Provider for managing app locale/language state
@@ -39,8 +40,16 @@ class LocaleProvider extends ChangeNotifier {
   /// Initialize the locale provider and load saved locale
   Future<void> initialize() async {
     await _loadSavedLocale();
+
+    // In debug builds, allow forcing locale via URL query (?lang=en|tr) for web screenshots
+    if (kDebugMode) {
+      final lang = Uri.base.queryParameters['lang'];
+      if (lang != null && (lang == 'en' || lang == 'tr')) {
+        await setLocale(Locale(lang));
+      }
+    }
   }
-  
+
   /// Load the saved locale from SharedPreferences
   Future<void> _loadSavedLocale() async {
     try {

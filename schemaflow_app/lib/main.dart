@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/foundation.dart' show kDebugMode; // for debug-only routing
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/providers/user_provider.dart';
@@ -9,6 +10,7 @@ import 'screens/onboarding_screen.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/i18n_test_screen.dart';
+import 'screens/paywall_screen.dart'; // debug preview entry
 import 'l10n/app_localizations.dart';
 
 import 'services/revenuecat_service.dart';
@@ -130,6 +132,19 @@ class _AppInitializerState extends State<AppInitializer> {
       builder: (context, UserProvider userProvider, child) {
         if (userProvider.isLoading) {
           return const SplashScreen();
+        }
+
+        // Debug-only direct screen preview via URL query, e.g. ?screen=paywall
+        if (kDebugMode) {
+          final params = Uri.base.queryParameters;
+          final screen = params['screen'];
+          if (screen == 'paywall') {
+            return const PaywallScreen(
+              dominantSchema: 'Perfectionist',
+              fullAnalysisText:
+                  'Preview mode: this is a placeholder analysis used for screenshots.',
+            );
+          }
         }
 
         if (userProvider.isAuthenticated) {

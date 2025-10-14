@@ -333,7 +333,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get teaserSectionTitle => 'Analiz Önizlemesi';
 
   @override
-  String get teaserUnlockNote => 'Tam analizi okumak için açın';
+  String get teaserUnlockNote => 'Devamını okumak için açın';
 
   @override
   String get teaserCtaHeading => 'Bu sadece başlangıç';

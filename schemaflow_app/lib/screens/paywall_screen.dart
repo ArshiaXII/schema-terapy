@@ -608,17 +608,23 @@ class _PaywallScreenState extends State<PaywallScreen>
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const Icon(
                     CupertinoIcons.creditcard_fill,
                     size: 20,
                   ),
                   const SizedBox(width: AppTheme.spacingS),
-                  Text(
-                    AppLocalizations.of(context)!.paywallConfirmCta,
-                    style: AppTheme.titleMedium.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Text(
+                      AppLocalizations.of(context)!.paywallConfirmCta,
+                      style: AppTheme.titleMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                 ],
