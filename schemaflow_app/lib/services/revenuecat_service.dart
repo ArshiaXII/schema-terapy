@@ -1,10 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
-
-// Conditional imports for RevenueCat (not supported on web)
-import 'package:purchases_flutter/purchases_flutter.dart'
-    if (dart.library.html) 'revenuecat_web_stub.dart';
-import 'package:purchases_ui_flutter/purchases_ui_flutter.dart'
-    if (dart.library.html) 'revenuecat_web_stub.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 
 /// Centralized RevenueCat integration
 class RevenueCatService {
