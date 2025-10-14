@@ -105,10 +105,12 @@ class _PaywallScreenState extends State<PaywallScreen>
   Future<void> _purchaseAnalysis() async {
     setState(() => _isPurchasing = true);
     try {
-      final unlocked = await RevenueCatService.instance.presentPaywallAndCheck();
+      // Check if already unlocked
+      final alreadyUnlocked = await RevenueCatService.instance.hasEntitlement();
       if (!mounted) return;
 
-      if (unlocked) {
+      if (alreadyUnlocked) {
+        // Already has access, navigate to results
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ResultsScreen(
@@ -117,14 +119,17 @@ class _PaywallScreenState extends State<PaywallScreen>
             ),
           ),
         );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${AppLocalizations.of(context)!.paywallPurchaseFailedPrefix}Cancelled'),
-            backgroundColor: AppTheme.errorRed,
-          ),
-        );
+        return;
       }
+
+      // Show message that purchase should be done through App Store
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.paywallPurchaseNote),
+          backgroundColor: AppTheme.primaryNavy,
+          duration: const Duration(seconds: 3),
+        ),
+      );
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
