@@ -122,12 +122,56 @@ class _PaywallScreenState extends State<PaywallScreen>
         return;
       }
 
-      // For now, just show that purchase is not available in this version
+      // Get available packages
+      final packages = await RevenueCatService.instance.getPackages();
+      if (!mounted) return;
+
+      if (packages.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.paywallNoPurchaseAvailable),
+            backgroundColor: AppTheme.warningOrange,
+          ),
+        );
+        return;
+      }
+
+      // Find the one-time purchase package (first available)
+      final package = packages.first;
+
+      // Initiate purchase
+      final success = await RevenueCatService.instance.purchasePackage(package);
+      if (!mounted) return;
+
+      if (success) {
+        // Purchase successful, navigate to results
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ResultsScreen(
+              dominantSchema: widget.dominantSchema,
+              fullAnalysisText: widget.fullAnalysisText,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.paywallPurchaseFailed),
+            backgroundColor: AppTheme.errorRed,
+          ),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      // Handle purchase errors
+      if (e.toString().contains('cancelled') || e.toString().contains('Cancelled')) {
+        // User cancelled, don't show error
+        return;
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Purchase functionality will be available soon'),
-          backgroundColor: AppTheme.accentTeal,
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text('${AppLocalizations.of(context)!.paywallPurchaseFailedPrefix}${e.toString()}'),
+          backgroundColor: AppTheme.errorRed,
         ),
       );
     } catch (e) {

@@ -5,6 +5,7 @@ import '../core/theme/app_theme.dart';
 import '../core/providers/user_provider.dart';
 import '../l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../core/widgets/language_switcher.dart';
 import 'auth_screen.dart';
@@ -99,6 +100,148 @@ class _UserProfileScreenState extends State<UserProfileScreen>
             ),
           );
         }
+      }
+    }
+  }
+
+  void _showHelpDialog() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppTheme.radiusL)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        builder: (context, scrollController) => SingleChildScrollView(
+          controller: scrollController,
+          child: Padding(
+            padding: const EdgeInsets.all(AppTheme.spacingL),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.helpTitle,
+                  style: AppTheme.headlineLarge,
+                ),
+                const SizedBox(height: AppTheme.spacingL),
+
+                // FAQ Section
+                Text(
+                  AppLocalizations.of(context)!.helpFaqTitle,
+                  style: AppTheme.headlineSmall.copyWith(
+                    color: AppTheme.primaryTeal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: AppTheme.spacingM),
+
+                _buildFaqItem(
+                  AppLocalizations.of(context)!.helpFaq1,
+                  AppLocalizations.of(context)!.helpFaq1Answer,
+                ),
+                _buildFaqItem(
+                  AppLocalizations.of(context)!.helpFaq2,
+                  AppLocalizations.of(context)!.helpFaq2Answer,
+                ),
+                _buildFaqItem(
+                  AppLocalizations.of(context)!.helpFaq3,
+                  AppLocalizations.of(context)!.helpFaq3Answer,
+                ),
+                _buildFaqItem(
+                  AppLocalizations.of(context)!.helpFaq4,
+                  AppLocalizations.of(context)!.helpFaq4Answer,
+                ),
+
+                const SizedBox(height: AppTheme.spacingXL),
+
+                // Contact Section
+                Text(
+                  AppLocalizations.of(context)!.helpContactTitle,
+                  style: AppTheme.headlineSmall.copyWith(
+                    color: AppTheme.primaryTeal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: AppTheme.spacingM),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: _sendSupportEmail,
+                    icon: const Icon(CupertinoIcons.mail),
+                    label: Text(AppLocalizations.of(context)!.helpContactEmail),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.primaryTeal,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: AppTheme.spacingM),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: AppTheme.spacingL),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFaqItem(String question, String answer) {
+    return ExpansionTile(
+      title: Text(
+        question,
+        style: AppTheme.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(AppTheme.spacingM),
+          child: Text(
+            answer,
+            style: AppTheme.bodyMedium.copyWith(color: AppTheme.textSecondary),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _sendSupportEmail() async {
+    final l10n = AppLocalizations.of(context)!;
+    final email = l10n.helpContactEmail;
+    final subject = l10n.helpEmailSubject;
+    final body = l10n.helpEmailBody;
+
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      queryParameters: {
+        'subject': subject,
+        'body': body,
+      },
+    );
+
+    try {
+      if (await canLaunchUrl(emailUri)) {
+        await launchUrl(emailUri);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not open email client'),
+              backgroundColor: AppTheme.errorRed,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: AppTheme.errorRed,
+          ),
+        );
       }
     }
   }
@@ -367,10 +510,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
             title: AppLocalizations.of(context)!.profileHelpTitle,
             subtitle: AppLocalizations.of(context)!.profileHelpSubtitle,
             onTap: () {
-              // TODO: Navigate to help screen
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(AppLocalizations.of(context)!.profileHelpSoon)),
-              );
+              _showHelpDialog();
             },
           ),
 

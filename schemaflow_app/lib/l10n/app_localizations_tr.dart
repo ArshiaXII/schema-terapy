@@ -172,7 +172,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu şema, kendinizi nasıl algıladığınızı ve başkalarıyla nasıl ilişki kurduğunuzu etkileyen önemli bir örüntüyü temsil eder. Bu örüntüyü anlamak, kişisel gelişim ve iyileşme yolunda ilk adımdır.';
 
   @override
-  String get next => 'İleri';
+  String get next => 'Sonraki';
 
   @override
   String get complete => 'Bitir';
@@ -238,6 +238,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallPurchaseFailedPrefix => 'Satın alma başarısız: ';
+
+  @override
+  String get paywallPurchaseFailed =>
+      'Satın alma tamamlanamadı. Lütfen tekrar deneyin.';
+
+  @override
+  String get paywallNoPurchaseAvailable =>
+      'Şu anda satın alma seçeneği yok. Lütfen daha sonra tekrar deneyin.';
 
   @override
   String get paywallHeaderTitle => 'Tam Şema Analizinizi Açın';
@@ -507,4 +515,177 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profileSignOutButton => 'Çıkış Yap';
+
+  @override
+  String get citationsTitle => 'Tıbbi ve Araştırma Kaynakları';
+
+  @override
+  String get citationsDescription =>
+      'Bu analiz, bilimsel olarak kanıtlanmış bir psikoterapi yaklaşımı olan Şema Terapisine dayanmaktadır.';
+
+  @override
+  String get citationSchemaTherapy =>
+      'Schema Therapy: A Practitioner\'s Guide - Jeffrey E. Young, Janet S. Klosko ve Marjorie E. Weishaar';
+
+  @override
+  String get citationResearch =>
+      'Şema Terapisinin etkinliği hakkında akran tarafından incelenen dergilerde yayınlanan araştırmalar';
+
+  @override
+  String get citationDisclaimer =>
+      'Bu uygulama eğitim amaçlı bilgi sağlar ve profesyonel ruh sağlığı tedavisinin yerine geçmez. Tanı ve tedavi için lütfen lisanslı bir terapist veya ruh sağlığı uzmanına danışın.';
+
+  @override
+  String get learnMore => 'Daha Fazla Bilgi';
+
+  @override
+  String get helpTitle => 'Yardım ve Destek';
+
+  @override
+  String get helpFaqTitle => 'Sık Sorulan Sorular';
+
+  @override
+  String get helpContactTitle => 'Destek ile İletişime Geçin';
+
+  @override
+  String get helpContactEmail => 'support@myschema.app';
+
+  @override
+  String get helpFaq1 => 'Şema Terapisi Nedir?';
+
+  @override
+  String get helpFaq1Answer =>
+      'Şema Terapisi, bilişsel-davranışçı terapi, bağlanma teorisi ve duygu odaklı terapinin unsurlarını birleştiren bütünleştirici bir psikoterapi yaklaşımıdır. Derin köklü düşünce ve davranış örüntülerini tanımlamaya ve değiştirmeye yardımcı olur.';
+
+  @override
+  String get helpFaq2 => 'Bu değerlendirme ne kadar doğru?';
+
+  @override
+  String get helpFaq2Answer =>
+      'Bu değerlendirme, doğrulanmış şema terapi anketlerine dayanmaktadır. Ancak, öz-farkındalık ve eğitim amaçları için tasarlanmıştır. Profesyonel bir tanı için lütfen lisanslı bir terapistle danışın.';
+
+  @override
+  String get helpFaq3 => 'Anketi tekrar yapabilir miyim?';
+
+  @override
+  String get helpFaq3Answer =>
+      'Evet, anket sayfasından istediğiniz zaman anketi tekrar yapabilirsiniz. Yeni sonuçlarınız önceki sonuçların yerini alacaktır.';
+
+  @override
+  String get helpFaq4 => 'Verilerim gizli mi?';
+
+  @override
+  String get helpFaq4Answer =>
+      'Evet, verileriniz şifrelenmiş ve güvenli bir şekilde depolanmaktadır. Kişisel bilgilerinizi asla üçüncü taraflarla paylaşmayız.';
+
+  @override
+  String get helpEmailSubject => 'MySchema Destek İsteği';
+
+  @override
+  String get helpEmailBody =>
+      'Merhaba,\n\nMySchema uygulaması ile ilgili yardıma ihtiyacım var:\n\n[Lütfen sorununuzu burada açıklayın]\n\nTeşekkür ederim!';
+
+  @override
+  String get detailedAssessment => 'Detaylı Şema Değerlendirmesi';
+
+  @override
+  String get question => 'Soru';
+
+  @override
+  String get pleaseAnswerAllQuestions =>
+      'Göndermeden önce lütfen tüm soruları cevaplayın';
+
+  @override
+  String get previous => 'Önceki';
+
+  @override
+  String get submit => 'Gönder';
+
+  @override
+  String get completelyDisagree => 'Tamamen Katılmıyorum';
+
+  @override
+  String get mostlyDisagree => 'Çoğunlukla Katılmıyorum';
+
+  @override
+  String get slightlyDisagree => 'Biraz Katılmıyorum';
+
+  @override
+  String get slightlyAgree => 'Biraz Katılıyorum';
+
+  @override
+  String get mostlyAgree => 'Çoğunlukla Katılıyorum';
+
+  @override
+  String get completelyAgree => 'Tamamen Katılıyorum';
+
+  @override
+  String get yourResults => 'Değerlendirme Sonuçlarınız';
+
+  @override
+  String get assessmentSummary => 'Değerlendirme Özeti';
+
+  @override
+  String get totalQuestions => 'Toplam Sorular';
+
+  @override
+  String get completedAt => 'Tamamlandı';
+
+  @override
+  String get dominantSchemas => 'Baskın Şemalarınız';
+
+  @override
+  String get domainBreakdown => 'Alan Dağılımı';
+
+  @override
+  String get backToHome => 'Ana Sayfaya Dön';
+
+  @override
+  String get therapyRecommendations => 'Terapi Önerileri';
+
+  @override
+  String get personalizedTherapyPlan => 'Kişiselleştirilmiş Terapi Planı';
+
+  @override
+  String get recommendedApproach => 'Önerilen Yaklaşım';
+
+  @override
+  String get suggestedPractices => 'Önerilen Uygulamalar';
+
+  @override
+  String get schemaEducation => 'Şema Eğitimi';
+
+  @override
+  String get assessmentProgress => 'Değerlendirme İlerleme';
+
+  @override
+  String get yourAssessmentHistory => 'Değerlendirme Geçmişiniz';
+
+  @override
+  String get schemaScoreTrends => 'Şema Puan Trendleri';
+
+  @override
+  String get noAssessmentHistory => 'Henüz değerlendirme geçmişi yok';
+
+  @override
+  String get completeAssessments =>
+      'Zaman içinde ilerlemenizi görmek için değerlendirmeleri tamamlayın';
+
+  @override
+  String get exportResults => 'Sonuçları Dışa Aktar';
+
+  @override
+  String get exportAsText => 'Metin Olarak Dışa Aktar';
+
+  @override
+  String get exportAsCSV => 'CSV Olarak Dışa Aktar';
+
+  @override
+  String get shareSummary => 'Özeti Paylaş';
+
+  @override
+  String get copiedToClipboard => 'Panoya kopyalandı!';
+
+  @override
+  String get viewProgress => 'İlerlemeyi Görüntüle';
 }

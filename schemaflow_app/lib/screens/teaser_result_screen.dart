@@ -4,6 +4,7 @@ import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
 
 import 'paywall_screen.dart';
+import 'results_screen.dart';
 
 /// Teaser Result Screen - Shows a preview of the analysis to encourage purchase
 ///
@@ -174,6 +175,11 @@ class _TeaserResultScreenState extends State<TeaserResultScreen>
 
                 // Purchase Button
                 _buildPurchaseButton(isSmallScreen),
+
+                const SizedBox(height: AppTheme.spacingXL),
+
+                // Citations Section
+                const CitationsWidget(),
 
                 const SizedBox(height: AppTheme.spacingXL),
               ],

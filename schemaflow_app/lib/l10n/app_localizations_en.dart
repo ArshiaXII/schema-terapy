@@ -240,6 +240,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallPurchaseFailedPrefix => 'Purchase failed: ';
 
   @override
+  String get paywallPurchaseFailed =>
+      'Purchase could not be completed. Please try again.';
+
+  @override
+  String get paywallNoPurchaseAvailable =>
+      'No purchase options available at this time. Please try again later.';
+
+  @override
   String get paywallHeaderTitle => 'Unlock Your Full Schema Analysis';
 
   @override
@@ -501,4 +509,177 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileSignOutButton => 'Sign Out';
+
+  @override
+  String get citationsTitle => 'Medical & Research Sources';
+
+  @override
+  String get citationsDescription =>
+      'This analysis is based on Schema Therapy, a scientifically-validated psychotherapy approach.';
+
+  @override
+  String get citationSchemaTherapy =>
+      'Schema Therapy: A Practitioner\'s Guide by Jeffrey E. Young, Janet S. Klosko, and Marjorie E. Weishaar';
+
+  @override
+  String get citationResearch =>
+      'Research on Schema Therapy effectiveness published in peer-reviewed journals';
+
+  @override
+  String get citationDisclaimer =>
+      'This app provides educational information and is not a substitute for professional mental health treatment. Please consult with a licensed therapist or mental health professional for diagnosis and treatment.';
+
+  @override
+  String get learnMore => 'Learn More';
+
+  @override
+  String get helpTitle => 'Help & Support';
+
+  @override
+  String get helpFaqTitle => 'Frequently Asked Questions';
+
+  @override
+  String get helpContactTitle => 'Contact Support';
+
+  @override
+  String get helpContactEmail => 'support@myschema.app';
+
+  @override
+  String get helpFaq1 => 'What is Schema Therapy?';
+
+  @override
+  String get helpFaq1Answer =>
+      'Schema Therapy is an integrative psychotherapy approach that combines elements of cognitive-behavioral therapy, attachment theory, and emotion-focused therapy. It helps identify and change deep-rooted patterns of thinking and behavior.';
+
+  @override
+  String get helpFaq2 => 'How accurate is this assessment?';
+
+  @override
+  String get helpFaq2Answer =>
+      'This assessment is based on validated schema therapy questionnaires. However, it\'s designed for self-awareness and educational purposes. For a professional diagnosis, please consult with a licensed therapist.';
+
+  @override
+  String get helpFaq3 => 'Can I retake the questionnaire?';
+
+  @override
+  String get helpFaq3Answer =>
+      'Yes, you can retake the questionnaire anytime from the home screen. Your new results will replace the previous ones.';
+
+  @override
+  String get helpFaq4 => 'Is my data private?';
+
+  @override
+  String get helpFaq4Answer =>
+      'Yes, your data is encrypted and stored securely. We never share your personal information with third parties.';
+
+  @override
+  String get helpEmailSubject => 'MySchema Support Request';
+
+  @override
+  String get helpEmailBody =>
+      'Hello,\n\nI need help with MySchema app:\n\n[Please describe your issue here]\n\nThank you!';
+
+  @override
+  String get detailedAssessment => 'Detailed Schema Assessment';
+
+  @override
+  String get question => 'Question';
+
+  @override
+  String get pleaseAnswerAllQuestions =>
+      'Please answer all questions before submitting';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get completelyDisagree => 'Completely Disagree';
+
+  @override
+  String get mostlyDisagree => 'Mostly Disagree';
+
+  @override
+  String get slightlyDisagree => 'Slightly Disagree';
+
+  @override
+  String get slightlyAgree => 'Slightly Agree';
+
+  @override
+  String get mostlyAgree => 'Mostly Agree';
+
+  @override
+  String get completelyAgree => 'Completely Agree';
+
+  @override
+  String get yourResults => 'Your Assessment Results';
+
+  @override
+  String get assessmentSummary => 'Assessment Summary';
+
+  @override
+  String get totalQuestions => 'Total Questions';
+
+  @override
+  String get completedAt => 'Completed At';
+
+  @override
+  String get dominantSchemas => 'Your Dominant Schemas';
+
+  @override
+  String get domainBreakdown => 'Domain Breakdown';
+
+  @override
+  String get backToHome => 'Back to Home';
+
+  @override
+  String get therapyRecommendations => 'Therapy Recommendations';
+
+  @override
+  String get personalizedTherapyPlan => 'Personalized Therapy Plan';
+
+  @override
+  String get recommendedApproach => 'Recommended Approach';
+
+  @override
+  String get suggestedPractices => 'Suggested Practices';
+
+  @override
+  String get schemaEducation => 'Schema Education';
+
+  @override
+  String get assessmentProgress => 'Assessment Progress';
+
+  @override
+  String get yourAssessmentHistory => 'Your Assessment History';
+
+  @override
+  String get schemaScoreTrends => 'Schema Score Trends';
+
+  @override
+  String get noAssessmentHistory => 'No assessment history yet';
+
+  @override
+  String get completeAssessments =>
+      'Complete assessments to see your progress over time';
+
+  @override
+  String get exportResults => 'Export Results';
+
+  @override
+  String get exportAsText => 'Export as Text';
+
+  @override
+  String get exportAsCSV => 'Export as CSV';
+
+  @override
+  String get shareSummary => 'Share Summary';
+
+  @override
+  String get copiedToClipboard => 'Copied to clipboard!';
+
+  @override
+  String get viewProgress => 'View Progress';
 }

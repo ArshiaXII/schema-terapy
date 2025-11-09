@@ -524,6 +524,18 @@ abstract class AppLocalizations {
   /// **'Purchase failed: '**
   String get paywallPurchaseFailedPrefix;
 
+  /// No description provided for @paywallPurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase could not be completed. Please try again.'**
+  String get paywallPurchaseFailed;
+
+  /// No description provided for @paywallNoPurchaseAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchase options available at this time. Please try again later.'**
+  String get paywallNoPurchaseAvailable;
+
   /// No description provided for @paywallHeaderTitle.
   ///
   /// In en, this message translates to:
@@ -1009,6 +1021,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign Out'**
   String get profileSignOutButton;
+
+  /// No description provided for @citationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical & Research Sources'**
+  String get citationsTitle;
+
+  /// No description provided for @citationsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This analysis is based on Schema Therapy, a scientifically-validated psychotherapy approach.'**
+  String get citationsDescription;
+
+  /// No description provided for @citationSchemaTherapy.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Therapy: A Practitioner\'s Guide by Jeffrey E. Young, Janet S. Klosko, and Marjorie E. Weishaar'**
+  String get citationSchemaTherapy;
+
+  /// No description provided for @citationResearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Research on Schema Therapy effectiveness published in peer-reviewed journals'**
+  String get citationResearch;
+
+  /// No description provided for @citationDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'This app provides educational information and is not a substitute for professional mental health treatment. Please consult with a licensed therapist or mental health professional for diagnosis and treatment.'**
+  String get citationDisclaimer;
+
+  /// No description provided for @learnMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn More'**
+  String get learnMore;
+
+  /// No description provided for @helpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpTitle;
+
+  /// No description provided for @helpFaqTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Asked Questions'**
+  String get helpFaqTitle;
+
+  /// No description provided for @helpContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get helpContactTitle;
+
+  /// No description provided for @helpContactEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'support@myschema.app'**
+  String get helpContactEmail;
+
+  /// No description provided for @helpFaq1.
+  ///
+  /// In en, this message translates to:
+  /// **'What is Schema Therapy?'**
+  String get helpFaq1;
+
+  /// No description provided for @helpFaq1Answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Therapy is an integrative psychotherapy approach that combines elements of cognitive-behavioral therapy, attachment theory, and emotion-focused therapy. It helps identify and change deep-rooted patterns of thinking and behavior.'**
+  String get helpFaq1Answer;
+
+  /// No description provided for @helpFaq2.
+  ///
+  /// In en, this message translates to:
+  /// **'How accurate is this assessment?'**
+  String get helpFaq2;
+
+  /// No description provided for @helpFaq2Answer.
+  ///
+  /// In en, this message translates to:
+  /// **'This assessment is based on validated schema therapy questionnaires. However, it\'s designed for self-awareness and educational purposes. For a professional diagnosis, please consult with a licensed therapist.'**
+  String get helpFaq2Answer;
+
+  /// No description provided for @helpFaq3.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I retake the questionnaire?'**
+  String get helpFaq3;
+
+  /// No description provided for @helpFaq3Answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, you can retake the questionnaire anytime from the home screen. Your new results will replace the previous ones.'**
+  String get helpFaq3Answer;
+
+  /// No description provided for @helpFaq4.
+  ///
+  /// In en, this message translates to:
+  /// **'Is my data private?'**
+  String get helpFaq4;
+
+  /// No description provided for @helpFaq4Answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, your data is encrypted and stored securely. We never share your personal information with third parties.'**
+  String get helpFaq4Answer;
+
+  /// No description provided for @helpEmailSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'MySchema Support Request'**
+  String get helpEmailSubject;
+
+  /// No description provided for @helpEmailBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello,\n\nI need help with MySchema app:\n\n[Please describe your issue here]\n\nThank you!'**
+  String get helpEmailBody;
+
+  /// No description provided for @detailedAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Schema Assessment'**
+  String get detailedAssessment;
+
+  /// No description provided for @question.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get question;
+
+  /// No description provided for @pleaseAnswerAllQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Please answer all questions before submitting'**
+  String get pleaseAnswerAllQuestions;
+
+  /// No description provided for @previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previous;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @completelyDisagree.
+  ///
+  /// In en, this message translates to:
+  /// **'Completely Disagree'**
+  String get completelyDisagree;
+
+  /// No description provided for @mostlyDisagree.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly Disagree'**
+  String get mostlyDisagree;
+
+  /// No description provided for @slightlyDisagree.
+  ///
+  /// In en, this message translates to:
+  /// **'Slightly Disagree'**
+  String get slightlyDisagree;
+
+  /// No description provided for @slightlyAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'Slightly Agree'**
+  String get slightlyAgree;
+
+  /// No description provided for @mostlyAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly Agree'**
+  String get mostlyAgree;
+
+  /// No description provided for @completelyAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'Completely Agree'**
+  String get completelyAgree;
+
+  /// No description provided for @yourResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Assessment Results'**
+  String get yourResults;
+
+  /// No description provided for @assessmentSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Summary'**
+  String get assessmentSummary;
+
+  /// No description provided for @totalQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Questions'**
+  String get totalQuestions;
+
+  /// No description provided for @completedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed At'**
+  String get completedAt;
+
+  /// No description provided for @dominantSchemas.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Dominant Schemas'**
+  String get dominantSchemas;
+
+  /// No description provided for @domainBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain Breakdown'**
+  String get domainBreakdown;
+
+  /// No description provided for @backToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get backToHome;
+
+  /// No description provided for @therapyRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Therapy Recommendations'**
+  String get therapyRecommendations;
+
+  /// No description provided for @personalizedTherapyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized Therapy Plan'**
+  String get personalizedTherapyPlan;
+
+  /// No description provided for @recommendedApproach.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Approach'**
+  String get recommendedApproach;
+
+  /// No description provided for @suggestedPractices.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Practices'**
+  String get suggestedPractices;
+
+  /// No description provided for @schemaEducation.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Education'**
+  String get schemaEducation;
+
+  /// No description provided for @assessmentProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Progress'**
+  String get assessmentProgress;
+
+  /// No description provided for @yourAssessmentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Assessment History'**
+  String get yourAssessmentHistory;
+
+  /// No description provided for @schemaScoreTrends.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Score Trends'**
+  String get schemaScoreTrends;
+
+  /// No description provided for @noAssessmentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment history yet'**
+  String get noAssessmentHistory;
+
+  /// No description provided for @completeAssessments.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete assessments to see your progress over time'**
+  String get completeAssessments;
+
+  /// No description provided for @exportResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Results'**
+  String get exportResults;
+
+  /// No description provided for @exportAsText.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as Text'**
+  String get exportAsText;
+
+  /// No description provided for @exportAsCSV.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as CSV'**
+  String get exportAsCSV;
+
+  /// No description provided for @shareSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Summary'**
+  String get shareSummary;
+
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard!'**
+  String get copiedToClipboard;
+
+  /// No description provided for @viewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View Progress'**
+  String get viewProgress;
 }
 
 class _AppLocalizationsDelegate

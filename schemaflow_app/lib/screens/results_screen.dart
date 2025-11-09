@@ -163,6 +163,11 @@ You sometimes feel that you are fundamentally flawed or defective in some way. T
               ),
             ),
 
+            // Citations section
+            const SliverToBoxAdapter(
+              child: CitationsWidget(),
+            ),
+
             // Bottom spacing
             const SliverToBoxAdapter(
               child: SizedBox(height: AppTheme.spacingXXL),
@@ -427,4 +432,91 @@ class SchemaResult {
     required this.effects,
     required this.nextSteps,
   });
+}
+
+/// Citations widget for medical information sources
+class CitationsWidget extends StatelessWidget {
+  const CitationsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      margin: const EdgeInsets.all(AppTheme.spacingM),
+      padding: const EdgeInsets.all(AppTheme.spacingM),
+      decoration: BoxDecoration(
+        color: AppTheme.backgroundCard,
+        border: Border.all(color: AppTheme.primaryTeal.withOpacity(0.3)),
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(CupertinoIcons.info_circle, color: AppTheme.primaryTeal),
+              const SizedBox(width: AppTheme.spacingS),
+              Expanded(
+                child: Text(
+                  l10n.citationsTitle,
+                  style: AppTheme.headlineSmall.copyWith(
+                    color: AppTheme.primaryTeal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppTheme.spacingM),
+          Text(
+            l10n.citationsDescription,
+            style: AppTheme.bodySmall.copyWith(color: AppTheme.textSecondary),
+          ),
+          const SizedBox(height: AppTheme.spacingM),
+          _buildCitationItem(l10n.citationSchemaTherapy),
+          const SizedBox(height: AppTheme.spacingS),
+          _buildCitationItem(l10n.citationResearch),
+          const SizedBox(height: AppTheme.spacingM),
+          Container(
+            padding: const EdgeInsets.all(AppTheme.spacingM),
+            decoration: BoxDecoration(
+              color: AppTheme.warningOrange.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(AppTheme.radiusS),
+            ),
+            child: Text(
+              l10n.citationDisclaimer,
+              style: AppTheme.bodySmall.copyWith(
+                color: AppTheme.textPrimary,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationItem(String text) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Icon(
+            CupertinoIcons.checkmark_circle,
+            size: 16,
+            color: AppTheme.accentGreen,
+          ),
+        ),
+        const SizedBox(width: AppTheme.spacingS),
+        Expanded(
+          child: Text(
+            text,
+            style: AppTheme.bodySmall.copyWith(color: AppTheme.textPrimary),
+          ),
+        ),
+      ],
+    );
+  }
 }

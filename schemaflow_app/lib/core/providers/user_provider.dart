@@ -1,7 +1,23 @@
 import 'package:flutter/foundation.dart';
+import '../../models/schema_therapy_data.dart';
 
 /// User subscription types
 enum SubscriptionType { none, monthly, yearly }
+
+/// Assessment history entry
+class AssessmentHistory {
+  final DateTime completedAt;
+  final Map<int, double> schemaScores;
+  final Map<int, double> domainScores;
+  final int totalQuestions;
+
+  const AssessmentHistory({
+    required this.completedAt,
+    required this.schemaScores,
+    required this.domainScores,
+    required this.totalQuestions,
+  });
+}
 
 /// User model for SchemaFlow app
 class User {
@@ -66,6 +82,8 @@ class UserProvider extends ChangeNotifier {
   User? _currentUser;
   bool _isAuthenticated = false;
   bool _isLoading = false;
+  PremiumQuestionnaireResult? _premiumQuestionnaireResult;
+  final List<AssessmentHistory> _assessmentHistory = [];
 
   // Getters
   User? get currentUser => _currentUser;
@@ -74,6 +92,9 @@ class UserProvider extends ChangeNotifier {
   bool get isPremium => _currentUser?.isPremium ?? false;
   bool get hasCompletedQuestionnaire => _currentUser?.hasCompletedQuestionnaire ?? false;
   bool get canUseChatFeature => _currentUser?.canUseChatFeature ?? false;
+  PremiumQuestionnaireResult? get premiumQuestionnaireResult => _premiumQuestionnaireResult;
+  List<AssessmentHistory> get assessmentHistory => _assessmentHistory;
+  AssessmentHistory? get latestAssessment => _assessmentHistory.isNotEmpty ? _assessmentHistory.last : null;
 
   // Authentication methods
   Future<void> signIn(String email, String password) async {
@@ -234,6 +255,35 @@ class UserProvider extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
+  }
+
+  // Premium questionnaire methods
+  void setPremiumQuestionnaireResult(PremiumQuestionnaireResult result) {
+    _premiumQuestionnaireResult = result;
+    notifyListeners();
+  }
+
+  void clearPremiumQuestionnaireResult() {
+    _premiumQuestionnaireResult = null;
+    notifyListeners();
+  }
+
+  // Assessment history methods
+  void addAssessmentToHistory(PremiumQuestionnaireResult result) {
+    _assessmentHistory.add(
+      AssessmentHistory(
+        completedAt: result.completedAt,
+        schemaScores: result.schemaScores,
+        domainScores: result.domainScores,
+        totalQuestions: result.totalQuestions,
+      ),
+    );
+    notifyListeners();
+  }
+
+  void clearAssessmentHistory() {
+    _assessmentHistory.clear();
+    notifyListeners();
   }
 
   // Helper methods
