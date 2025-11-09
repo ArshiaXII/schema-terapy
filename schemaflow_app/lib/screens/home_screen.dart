@@ -7,6 +7,9 @@ import '../l10n/app_localizations.dart';
 import 'questionnaire_screen.dart';
 import 'results_screen.dart';
 import 'user_profile_screen.dart';
+import 'premium_questionnaire_screen.dart';
+import 'schema_education_screen.dart';
+import 'assessment_comparison_screen.dart';
 
 /// Home screen - main dashboard after login
 class HomeScreen extends StatefulWidget {
@@ -411,9 +414,118 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             ],
+
+            // Premium Features Section
+            if (userProvider.isPremium) ...[
+              const SizedBox(height: AppTheme.spacingXL),
+              Text(
+                'Premium Features',
+                style: AppTheme.headlineMedium,
+              ),
+              const SizedBox(height: AppTheme.spacingL),
+              _buildPremiumFeaturesGrid(context),
+            ],
           ],
         );
       },
+    );
+  }
+
+  Widget _buildPremiumFeaturesGrid(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      mainAxisSpacing: AppTheme.spacingM,
+      crossAxisSpacing: AppTheme.spacingM,
+      children: [
+        _buildPremiumFeatureCard(
+          context,
+          icon: CupertinoIcons.doc_text_search,
+          title: 'Detailed Assessment',
+          color: AppTheme.primaryTeal,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const PremiumQuestionnaireScreen(),
+              ),
+            );
+          },
+        ),
+        _buildPremiumFeatureCard(
+          context,
+          icon: CupertinoIcons.book,
+          title: 'Schema Education',
+          color: AppTheme.accentGreen,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SchemaEducationScreen(schemaId: 1),
+              ),
+            );
+          },
+        ),
+        _buildPremiumFeatureCard(
+          context,
+          icon: CupertinoIcons.chart_bar,
+          title: 'Progress Tracking',
+          color: AppTheme.warningOrange,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AssessmentComparisonScreen(),
+              ),
+            );
+          },
+        ),
+        _buildPremiumFeatureCard(
+          context,
+          icon: CupertinoIcons.lightbulb,
+          title: 'Recommendations',
+          color: Colors.purple,
+          onTap: () {
+            // Navigate to recommendations
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPremiumFeatureCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [color.withOpacity(0.8), color],
+          ),
+          borderRadius: BorderRadius.circular(AppTheme.radiusM),
+          boxShadow: AppTheme.shadowSmall,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 32, color: Colors.white),
+            const SizedBox(height: AppTheme.spacingS),
+            Text(
+              title,
+              style: AppTheme.bodyMedium.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

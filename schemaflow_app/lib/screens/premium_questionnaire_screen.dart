@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../models/premium_questions.dart';
 import '../models/schema_therapy_data.dart';
 import '../core/providers/user_provider.dart';
 import '../services/api_service.dart';
+import '../services/schema_analysis_service.dart';
+import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import 'premium_results_screen.dart';
 
 class PremiumQuestionnaireScreen extends StatefulWidget {
@@ -64,42 +66,28 @@ class _PremiumQuestionnaireScreenState extends State<PremiumQuestionnaireScreen>
     setState(() => _isLoading = true);
 
     try {
-      // Calculate schema scores
-      final Map<int, List<int>> schemaAnswers = {};
-      for (final question in PremiumQuestionsDatabase.allQuestions) {
-        if (!schemaAnswers.containsKey(question.schemaId)) {
-          schemaAnswers[question.schemaId] = [];
-        }
-        schemaAnswers[question.schemaId]!.add(_answers[question.id] ?? 1);
+      // Validate answers
+      final validation = SchemaAnalysisService.validateAnswers(
+        _answers,
+        PremiumQuestionsDatabase.allQuestions.length,
+      );
+
+      if (!validation.isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Validation Error: ${validation.errorMessage}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        setState(() => _isLoading = false);
+        return;
       }
 
-      // Calculate average scores for each schema
-      final Map<int, double> schemaScores = {};
-      schemaAnswers.forEach((schemaId, scores) {
-        schemaScores[schemaId] =
-            scores.reduce((a, b) => a + b) / scores.length;
-      });
+      // Calculate schema scores using SchemaAnalysisService
+      final schemaScores = SchemaAnalysisService.calculateSchemaScores(_answers);
 
       // Calculate domain scores
-      final Map<int, List<double>> domainScores = {};
-      for (int i = 1; i <= 5; i++) {
-        domainScores[i] = [];
-      }
-
-      schemaScores.forEach((schemaId, score) {
-        final schema = SchemaTherapyDatabase.getSchemaById(schemaId);
-        if (schema != null) {
-          final domainId = schema.domain.index + 1;
-          domainScores[domainId]!.add(score);
-        }
-      });
-
-      final Map<int, double> finalDomainScores = {};
-      domainScores.forEach((domainId, scores) {
-        if (scores.isNotEmpty) {
-          finalDomainScores[domainId] = scores.reduce((a, b) => a + b) / scores.length;
-        }
-      });
+      final finalDomainScores = SchemaAnalysisService.calculateDomainScores(schemaScores);
 
       // Save results
       final result = PremiumQuestionnaireResult(

@@ -49,6 +49,14 @@ class AppTheme {
   static const double radiusXL = 24.0;
 
   // Shadows
+  static List<BoxShadow> get shadowSmall => [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.08),
+      blurRadius: 8,
+      offset: const Offset(0, 2),
+    ),
+  ];
+
   static List<BoxShadow> get shadowLight => [
     BoxShadow(
       color: Colors.black.withOpacity(0.05),
@@ -62,6 +70,14 @@ class AppTheme {
       color: Colors.black.withOpacity(0.1),
       blurRadius: 20,
       offset: const Offset(0, 4),
+    ),
+  ];
+
+  static List<BoxShadow> get shadowLarge => [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.15),
+      blurRadius: 30,
+      offset: const Offset(0, 8),
     ),
   ];
 

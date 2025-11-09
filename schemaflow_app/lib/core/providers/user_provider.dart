@@ -214,18 +214,18 @@ class UserProvider extends ChangeNotifier {
   // Questionnaire methods
   Future<void> completeQuestionnaire(Map<String, dynamic> results) async {
     if (_currentUser == null) return;
-    
+
     _setLoading(true);
-    
+
     try {
       // Simulate API call delay
       await Future.delayed(const Duration(seconds: 3));
-      
+
       _currentUser = _currentUser!.copyWith(
         hasCompletedQuestionnaire: true,
         schemaResults: results,
       );
-      
+
       notifyListeners();
     } catch (e) {
       throw Exception('Failed to save questionnaire results: $e');

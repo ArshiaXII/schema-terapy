@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/schema_therapy_data.dart';
 import '../core/providers/user_provider.dart';
 import '../core/theme/app_theme.dart';
 import '../services/export_service.dart';
+import '../l10n/app_localizations.dart';
 import 'schema_education_screen.dart';
 import 'therapy_recommendations_screen.dart';
 import 'assessment_comparison_screen.dart';
