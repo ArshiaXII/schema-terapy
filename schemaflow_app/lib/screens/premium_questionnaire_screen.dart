@@ -7,6 +7,8 @@ import '../services/api_service.dart';
 import '../services/schema_analysis_service.dart';
 import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
+import '../widgets/page_transitions.dart';
+import '../widgets/success_animation.dart';
 import 'premium_results_screen.dart';
 
 class PremiumQuestionnaireScreen extends StatefulWidget {
@@ -101,10 +103,11 @@ class _PremiumQuestionnaireScreenState extends State<PremiumQuestionnaireScreen>
       if (mounted) {
         context.read<UserProvider>().setPremiumQuestionnaireResult(result);
 
-        // Navigate to results
+        // Navigate to results with animation
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          ScalePageRoute(
             builder: (context) => const PremiumResultsScreen(),
+            duration: const Duration(milliseconds: 500),
           ),
         );
       }

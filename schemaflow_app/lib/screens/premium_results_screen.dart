@@ -6,6 +6,8 @@ import '../core/providers/user_provider.dart';
 import '../core/theme/app_theme.dart';
 import '../services/export_service.dart';
 import '../l10n/app_localizations.dart';
+import '../widgets/page_transitions.dart';
+import '../widgets/success_animation.dart';
 import 'schema_education_screen.dart';
 import 'therapy_recommendations_screen.dart';
 import 'assessment_comparison_screen.dart';
@@ -307,6 +309,38 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.picture_as_pdf),
+              title: const Text('Export as PDF'),
+              onTap: () async {
+                Navigator.pop(context);
+                _showLoadingDialog(context);
+                final file = await ExportService.exportToPDF(
+                  result,
+                  userName: userProvider.currentUser?.name ?? 'User',
+                );
+                if (mounted) Navigator.pop(context);
+                if (file != null && mounted) {
+                  _showSuccessMessage(context, 'PDF exported successfully!');
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.download),
+              title: const Text('Export as CSV File'),
+              onTap: () async {
+                Navigator.pop(context);
+                _showLoadingDialog(context);
+                final file = await ExportService.exportToCSVFile(
+                  result,
+                  userName: userProvider.currentUser?.name ?? 'User',
+                );
+                if (mounted) Navigator.pop(context);
+                if (file != null && mounted) {
+                  _showSuccessMessage(context, 'CSV exported successfully!');
+                }
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.share),
               title: const Text('Share Summary'),
               onTap: () {
@@ -329,6 +363,36 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
       const SnackBar(
         content: Text('Copied to clipboard!'),
         duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              const Text('Exporting...'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
       ),
     );
   }

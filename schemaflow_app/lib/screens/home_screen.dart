@@ -4,12 +4,14 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../core/providers/user_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../widgets/page_transitions.dart';
 import 'questionnaire_screen.dart';
 import 'results_screen.dart';
 import 'user_profile_screen.dart';
 import 'premium_questionnaire_screen.dart';
 import 'schema_education_screen.dart';
 import 'assessment_comparison_screen.dart';
+import 'therapy_recommendations_screen.dart';
 
 /// Home screen - main dashboard after login
 class HomeScreen extends StatefulWidget {
@@ -446,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           color: AppTheme.primaryTeal,
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              RotatePageRoute(
                 builder: (context) => const PremiumQuestionnaireScreen(),
               ),
             );
@@ -459,7 +461,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           color: AppTheme.accentGreen,
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              FadePageRoute(
                 builder: (context) => const SchemaEducationScreen(schemaId: 1),
               ),
             );
@@ -472,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           color: AppTheme.warningOrange,
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
+              SlidePageRoute(
                 builder: (context) => const AssessmentComparisonScreen(),
               ),
             );
@@ -484,7 +486,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           title: 'Recommendations',
           color: Colors.purple,
           onTap: () {
-            // Navigate to recommendations
+            final userProvider = context.read<UserProvider>();
+            final result = userProvider.premiumQuestionnaireResult;
+            if (result != null) {
+              Navigator.of(context).push(
+                SlidePageRoute(
+                  builder: (context) => TherapyRecommendationsScreen(
+                    schemaScores: result.schemaScores,
+                  ),
+                ),
+              );
+            }
           },
         ),
       ],
