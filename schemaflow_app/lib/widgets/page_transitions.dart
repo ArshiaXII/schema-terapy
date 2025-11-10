@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// Fade page transition
+/// Fade page transition with smooth easing
 class FadePageRoute<T> extends PageRoute<T> {
   FadePageRoute({
     required this.builder,
-    this.duration = const Duration(milliseconds: 300),
+    this.duration = const Duration(milliseconds: 600),
     RouteSettings? settings,
   }) : super(settings: settings);
 
@@ -43,17 +43,17 @@ class FadePageRoute<T> extends PageRoute<T> {
     Widget child,
   ) {
     return FadeTransition(
-      opacity: animation,
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
       child: child,
     );
   }
 }
 
-/// Slide page transition
+/// Slide page transition with smooth easing
 class SlidePageRoute<T> extends PageRoute<T> {
   SlidePageRoute({
     required this.builder,
-    this.duration = const Duration(milliseconds: 400),
+    this.duration = const Duration(milliseconds: 600),
     RouteSettings? settings,
   }) : super(settings: settings);
 
@@ -95,17 +95,20 @@ class SlidePageRoute<T> extends PageRoute<T> {
       position: Tween<Offset>(
         begin: const Offset(1, 0),
         end: Offset.zero,
-      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-      child: child,
+      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
+      child: FadeTransition(
+        opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        child: child,
+      ),
     );
   }
 }
 
-/// Scale page transition
+/// Scale page transition with smooth easing
 class ScalePageRoute<T> extends PageRoute<T> {
   ScalePageRoute({
     required this.builder,
-    this.duration = const Duration(milliseconds: 400),
+    this.duration = const Duration(milliseconds: 600),
     RouteSettings? settings,
   }) : super(settings: settings);
 
@@ -144,22 +147,22 @@ class ScalePageRoute<T> extends PageRoute<T> {
     Widget child,
   ) {
     return ScaleTransition(
-      scale: Tween<double>(begin: 0.8, end: 1).animate(
-        CurvedAnimation(parent: animation, curve: Curves.easeOut),
+      scale: Tween<double>(begin: 0.85, end: 1).animate(
+        CurvedAnimation(parent: animation, curve: Curves.easeInOut),
       ),
       child: FadeTransition(
-        opacity: animation,
+        opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
         child: child,
       ),
     );
   }
 }
 
-/// Rotate page transition
+/// Rotate page transition with smooth easing
 class RotatePageRoute<T> extends PageRoute<T> {
   RotatePageRoute({
     required this.builder,
-    this.duration = const Duration(milliseconds: 500),
+    this.duration = const Duration(milliseconds: 700),
     RouteSettings? settings,
   }) : super(settings: settings);
 
@@ -198,12 +201,17 @@ class RotatePageRoute<T> extends PageRoute<T> {
     Widget child,
   ) {
     return RotationTransition(
-      turns: Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: animation, curve: Curves.easeOut),
+      turns: Tween<double>(begin: 0, end: 0.5).animate(
+        CurvedAnimation(parent: animation, curve: Curves.easeInOut),
       ),
       child: ScaleTransition(
-        scale: Tween<double>(begin: 0.8, end: 1).animate(animation),
-        child: child,
+        scale: Tween<double>(begin: 0.85, end: 1).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        ),
+        child: FadeTransition(
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+          child: child,
+        ),
       ),
     );
   }

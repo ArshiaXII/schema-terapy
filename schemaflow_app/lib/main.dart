@@ -14,6 +14,7 @@ import 'screens/paywall_screen.dart'; // debug preview entry
 import 'l10n/app_localizations.dart';
 
 import 'services/revenuecat_service.dart';
+import 'core/providers/user_provider.dart' show SubscriptionType;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -144,6 +145,19 @@ class _AppInitializerState extends State<AppInitializer> {
               fullAnalysisText:
                   'Preview mode: this is a placeholder analysis used for screenshots.',
             );
+          }
+          // Debug mode: skip authentication and go directly to home screen
+          if (screen == 'home' || screen == null) {
+            // Auto-login for testing
+            if (!userProvider.isAuthenticated) {
+              Future.microtask(() {
+                userProvider.signIn('test@example.com', 'password').then((_) {
+                  // Subscribe to premium for testing
+                  userProvider.subscribeToPremium(SubscriptionType.yearly);
+                });
+              });
+            }
+            return const HomeScreen();
           }
         }
 

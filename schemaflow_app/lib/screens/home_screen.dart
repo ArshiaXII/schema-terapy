@@ -5,6 +5,7 @@ import '../core/theme/app_theme.dart';
 import '../core/providers/user_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/page_transitions.dart';
+import '../widgets/animated_feature_card.dart';
 import 'questionnaire_screen.dart';
 import 'results_screen.dart';
 import 'user_profile_screen.dart';
@@ -440,12 +441,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: AppTheme.spacingM,
       crossAxisSpacing: AppTheme.spacingM,
+      childAspectRatio: 1.0,
       children: [
-        _buildPremiumFeatureCard(
-          context,
-          icon: CupertinoIcons.doc_text_search,
+        AnimatedFeatureCard(
           title: 'Detailed Assessment',
           color: AppTheme.primaryTeal,
+          icon: CupertinoIcons.doc_text_search,
+          delayMs: 0,
           onTap: () {
             Navigator.of(context).push(
               RotatePageRoute(
@@ -454,11 +456,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             );
           },
         ),
-        _buildPremiumFeatureCard(
-          context,
-          icon: CupertinoIcons.book,
+        AnimatedFeatureCard(
           title: 'Schema Education',
           color: AppTheme.accentGreen,
+          icon: CupertinoIcons.book,
+          delayMs: 100,
           onTap: () {
             Navigator.of(context).push(
               FadePageRoute(
@@ -467,11 +469,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             );
           },
         ),
-        _buildPremiumFeatureCard(
-          context,
-          icon: CupertinoIcons.chart_bar,
+        AnimatedFeatureCard(
           title: 'Progress Tracking',
           color: AppTheme.warningOrange,
+          icon: CupertinoIcons.chart_bar,
+          delayMs: 200,
           onTap: () {
             Navigator.of(context).push(
               SlidePageRoute(
@@ -480,11 +482,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             );
           },
         ),
-        _buildPremiumFeatureCard(
-          context,
-          icon: CupertinoIcons.lightbulb,
+        AnimatedFeatureCard(
           title: 'Recommendations',
           color: Colors.purple,
+          icon: CupertinoIcons.lightbulb,
+          delayMs: 300,
           onTap: () {
             final userProvider = context.read<UserProvider>();
             final result = userProvider.premiumQuestionnaireResult;
@@ -503,43 +505,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildPremiumFeatureCard(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [color.withOpacity(0.8), color],
-          ),
-          borderRadius: BorderRadius.circular(AppTheme.radiusM),
-          boxShadow: AppTheme.shadowSmall,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 32, color: Colors.white),
-            const SizedBox(height: AppTheme.spacingS),
-            Text(
-              title,
-              style: AppTheme.bodyMedium.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildReportCard({
     required String title,
