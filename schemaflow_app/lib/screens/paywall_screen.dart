@@ -196,18 +196,42 @@ class _PaywallScreenState extends State<PaywallScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(CupertinoIcons.xmark),
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppTheme.primaryTeal.withOpacity(0.08),
+            border: Border.all(
+              color: AppTheme.primaryTeal.withOpacity(0.15),
+              width: 1.5,
+            ),
+          ),
+          child: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              CupertinoIcons.xmark,
+              color: AppTheme.primaryTeal.withOpacity(0.7),
+            ),
+          ),
         ),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppTheme.backgroundGradient,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white.withOpacity(0.98),
+              AppTheme.primaryTeal.withOpacity(0.02),
+            ],
+          ),
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppTheme.spacingL),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppTheme.spacingL,
+              vertical: AppTheme.spacingM,
+            ),
             child: Column(
               children: [
                 // Header
@@ -268,38 +292,57 @@ class _PaywallScreenState extends State<PaywallScreen>
     return Column(
       children: [
         Container(
-          width: 80,
-          height: 80,
+          width: 100,
+          height: 100,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+              colors: [
+                AppTheme.primaryTeal.withOpacity(0.12),
+                AppTheme.accentGreen.withOpacity(0.08),
+              ],
             ),
             shape: BoxShape.circle,
-            boxShadow: AppTheme.shadowMedium,
+            border: Border.all(
+              color: AppTheme.primaryTeal.withOpacity(0.15),
+              width: 2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.primaryTeal.withOpacity(0.08),
+                blurRadius: 25,
+                spreadRadius: 5,
+              ),
+            ],
           ),
-          child: const Icon(
+          child: Icon(
             CupertinoIcons.star_circle,
-            size: 40,
-            color: Colors.white,
+            size: 50,
+            color: AppTheme.primaryTeal.withOpacity(0.6),
           ),
         ),
 
-        const SizedBox(height: AppTheme.spacingL),
+        const SizedBox(height: AppTheme.spacingXL),
 
         Text(
           AppLocalizations.of(context)!.paywallHeaderTitle,
-          style: AppTheme.displayMedium,
+          style: AppTheme.displayMedium.copyWith(
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+            color: AppTheme.textPrimary,
+          ),
           textAlign: TextAlign.center,
         ),
 
-        const SizedBox(height: AppTheme.spacingS),
+        const SizedBox(height: AppTheme.spacingM),
 
         Text(
           AppLocalizations.of(context)!.paywallHeaderSubtitle,
           style: AppTheme.bodyLarge.copyWith(
             color: AppTheme.textSecondary,
+            fontWeight: FontWeight.w400,
+            height: 1.6,
           ),
           textAlign: TextAlign.center,
         ),
@@ -345,20 +388,53 @@ class _PaywallScreenState extends State<PaywallScreen>
     return Container(
       margin: const EdgeInsets.only(bottom: AppTheme.spacingM),
       padding: const EdgeInsets.all(AppTheme.spacingL),
-      decoration: AppTheme.cardDecoration,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.95),
+            AppTheme.primaryTeal.withOpacity(0.02),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        border: Border.all(
+          color: AppTheme.primaryTeal.withOpacity(0.08),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryTeal.withOpacity(0.04),
+            blurRadius: 12,
+            spreadRadius: 0,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Row(
         children: [
           Container(
-            width: 48,
-            height: 48,
+            width: 52,
+            height: 52,
             decoration: BoxDecoration(
-              color: AppTheme.accentGreen.withOpacity(0.1),
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.accentGreen.withOpacity(0.12),
+                  AppTheme.accentGreen.withOpacity(0.06),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
               borderRadius: BorderRadius.circular(AppTheme.radiusM),
+              border: Border.all(
+                color: AppTheme.accentGreen.withOpacity(0.15),
+                width: 1.5,
+              ),
             ),
             child: Icon(
               CupertinoIcons.checkmark_circle_fill,
-              color: AppTheme.accentGreen,
-              size: 24,
+              color: AppTheme.accentGreen.withOpacity(0.7),
+              size: 26,
             ),
           ),
 
@@ -372,13 +448,15 @@ class _PaywallScreenState extends State<PaywallScreen>
                   feature.title,
                   style: AppTheme.titleMedium.copyWith(
                     fontWeight: FontWeight.w600,
+                    color: AppTheme.textPrimary,
                   ),
                 ),
-                const SizedBox(height: AppTheme.spacingXS),
+                const SizedBox(height: 6),
                 Text(
                   feature.description,
                   style: AppTheme.bodyMedium.copyWith(
-                    color: AppTheme.textSecondary,
+                    color: AppTheme.textSecondary.withOpacity(0.8),
+                    height: 1.5,
                   ),
                 ),
               ],
@@ -391,88 +469,128 @@ class _PaywallScreenState extends State<PaywallScreen>
 
   Widget _buildPurchaseSummary() {
     return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingL),
+      padding: const EdgeInsets.all(AppTheme.spacingXL),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppTheme.primaryTeal.withOpacity(0.1),
-            AppTheme.accentGreen.withOpacity(0.05),
+            AppTheme.primaryTeal.withOpacity(0.06),
+            AppTheme.accentGreen.withOpacity(0.03),
           ],
         ),
         borderRadius: BorderRadius.circular(AppTheme.radiusL),
         border: Border.all(
-          color: AppTheme.primaryTeal.withOpacity(0.2),
-          width: 1,
+          color: AppTheme.primaryTeal.withOpacity(0.1),
+          width: 1.5,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryTeal.withOpacity(0.05),
+            blurRadius: 20,
+            spreadRadius: 0,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(AppTheme.spacingS),
+                padding: const EdgeInsets.all(AppTheme.spacingM),
                 decoration: BoxDecoration(
-                  gradient: AppTheme.primaryGradient,
+                  gradient: LinearGradient(
+                    colors: [
+                      AppTheme.primaryTeal.withOpacity(0.15),
+                      AppTheme.accentGreen.withOpacity(0.1),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                   borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                  border: Border.all(
+                    color: AppTheme.primaryTeal.withOpacity(0.15),
+                    width: 1,
+                  ),
                 ),
-                child: const Icon(
+                child: Icon(
                   CupertinoIcons.doc_text_search,
-                  color: Colors.white,
-                  size: 24,
+                  color: AppTheme.primaryTeal.withOpacity(0.7),
+                  size: 28,
                 ),
               ),
-              const SizedBox(width: AppTheme.spacingM),
+              const SizedBox(width: AppTheme.spacingL),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       AppLocalizations.of(context)!.paywallSummaryTitle,
-                      style: AppTheme.headlineMedium,
+                      style: AppTheme.headlineMedium.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
                     ),
-                    const SizedBox(height: AppTheme.spacingXS),
+                    const SizedBox(height: 6),
                     Text(
                       AppLocalizations.of(context)!.paywallSummarySubtitle,
                       style: AppTheme.bodyMedium.copyWith(
-                        color: AppTheme.textSecondary,
+                        color: AppTheme.textSecondary.withOpacity(0.8),
+                        height: 1.5,
                       ),
                     ),
                   ],
                 ),
               ),
-              Text(
-                AppLocalizations.of(context)!.paywallPrice,
-                style: AppTheme.headlineLarge.copyWith(
-                  color: AppTheme.primaryTeal,
-                  fontWeight: FontWeight.bold,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.paywallPrice,
+                    style: AppTheme.headlineLarge.copyWith(
+                      color: AppTheme.primaryTeal.withOpacity(0.8),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'One-time',
+                    style: AppTheme.bodySmall.copyWith(
+                      color: AppTheme.textSecondary.withOpacity(0.7),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
 
-          const SizedBox(height: AppTheme.spacingL),
+          const SizedBox(height: AppTheme.spacingXL),
 
           Container(
             padding: const EdgeInsets.all(AppTheme.spacingM),
             decoration: BoxDecoration(
-              color: AppTheme.backgroundCard,
+              color: AppTheme.accentGreen.withOpacity(0.05),
               borderRadius: BorderRadius.circular(AppTheme.radiusM),
+              border: Border.all(
+                color: AppTheme.accentGreen.withOpacity(0.1),
+                width: 1,
+              ),
             ),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   CupertinoIcons.info_circle_fill,
-                  color: AppTheme.accentGreen,
-                  size: 16,
+                  color: AppTheme.accentGreen.withOpacity(0.6),
+                  size: 18,
                 ),
                 const SizedBox(width: AppTheme.spacingS),
                 Expanded(
                   child: Text(
                     AppLocalizations.of(context)!.paywallSummaryNote,
                     style: AppTheme.bodySmall.copyWith(
-                      color: AppTheme.textSecondary,
+                      color: AppTheme.textSecondary.withOpacity(0.75),
+                      height: 1.5,
                     ),
                   ),
                 ),
@@ -634,14 +752,14 @@ class _PaywallScreenState extends State<PaywallScreen>
   Widget _buildPurchaseButton() {
     return SizedBox(
       width: double.infinity,
-      height: 64,
+      height: 60,
       child: ElevatedButton(
         onPressed: _isPurchasing ? null : _purchaseAnalysis,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppTheme.primaryTeal,
+          backgroundColor: AppTheme.primaryTeal.withOpacity(0.85),
           foregroundColor: Colors.white,
-          elevation: 8,
-          shadowColor: AppTheme.primaryTeal.withOpacity(0.3),
+          elevation: 6,
+          shadowColor: AppTheme.primaryTeal.withOpacity(0.2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppTheme.radiusL),
           ),
@@ -652,7 +770,7 @@ class _PaywallScreenState extends State<PaywallScreen>
                 height: 24,
                 child: CircularProgressIndicator(
                   color: Colors.white,
-                  strokeWidth: 2,
+                  strokeWidth: 2.5,
                 ),
               )
             : Row(
@@ -668,8 +786,9 @@ class _PaywallScreenState extends State<PaywallScreen>
                     child: Text(
                       AppLocalizations.of(context)!.paywallConfirmCta,
                       style: AppTheme.titleMedium.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                        color: Colors.white.withOpacity(0.95),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.2,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -707,8 +826,9 @@ class _PaywallScreenState extends State<PaywallScreen>
       child: Text(
         AppLocalizations.of(context)!.paywallRestorePurchase,
         style: AppTheme.bodyMedium.copyWith(
-          color: AppTheme.textSecondary,
+          color: AppTheme.textSecondary.withOpacity(0.7),
           decoration: TextDecoration.underline,
+          decorationColor: AppTheme.textSecondary.withOpacity(0.5),
         ),
       ),
     );
