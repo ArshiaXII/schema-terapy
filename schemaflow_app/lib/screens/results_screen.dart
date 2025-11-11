@@ -226,25 +226,47 @@ You sometimes feel that you are fundamentally flawed or defective in some way. T
       decoration: BoxDecoration(
         gradient: AppTheme.primaryGradient,
         borderRadius: BorderRadius.circular(AppTheme.radiusL),
-        boxShadow: AppTheme.shadowMedium,
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryTeal.withOpacity(0.3),
+            blurRadius: 30,
+            spreadRadius: 2,
+            offset: const Offset(0, 15),
+          ),
+        ],
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1.5,
+        ),
       ),
       child: Column(
         children: [
           Container(
-            width: 80,
-            height: 80,
+            width: 90,
+            height: 90,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withOpacity(0.15),
               shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withOpacity(0.3),
+                width: 2.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white.withOpacity(0.2),
+                  blurRadius: 20,
+                  spreadRadius: 5,
+                ),
+              ],
             ),
             child: const Icon(
               CupertinoIcons.person_crop_circle_badge_checkmark,
-              size: 40,
+              size: 45,
               color: Colors.white,
             ),
           ),
 
-          const SizedBox(height: AppTheme.spacingL),
+          const SizedBox(height: AppTheme.spacingXL),
 
           Text(
             AppLocalizations.of(context)!.resultsProfileTitle,
@@ -288,12 +310,36 @@ You sometimes feel that you are fundamentally flawed or defective in some way. T
   }
 
   Widget _buildSchemaCard(SchemaResult schema) {
+    final severityColor = _getSeverityColor(schema.severity);
+
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: AppTheme.spacingL,
-        vertical: AppTheme.spacingS,
+        vertical: AppTheme.spacingM,
       ),
-      decoration: AppTheme.elevatedCardDecoration,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.95),
+            Colors.white.withOpacity(0.85),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+        border: Border.all(
+          color: severityColor.withOpacity(0.15),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: severityColor.withOpacity(0.12),
+            blurRadius: 20,
+            spreadRadius: 1,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
       child: ExpansionTile(
         tilePadding: const EdgeInsets.all(AppTheme.spacingL),
         childrenPadding: const EdgeInsets.only(
@@ -302,22 +348,34 @@ You sometimes feel that you are fundamentally flawed or defective in some way. T
           bottom: AppTheme.spacingL,
         ),
         leading: Container(
-          width: 48,
-          height: 48,
+          width: 56,
+          height: 56,
           decoration: BoxDecoration(
-            color: _getSeverityColor(schema.severity).withOpacity(0.1),
+            gradient: LinearGradient(
+              colors: [
+                severityColor.withOpacity(0.15),
+                severityColor.withOpacity(0.08),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.circular(AppTheme.radiusM),
+            border: Border.all(
+              color: severityColor.withOpacity(0.2),
+              width: 1.5,
+            ),
           ),
           child: Icon(
             schema.icon,
-            color: _getSeverityColor(schema.severity),
-            size: 24,
+            color: severityColor,
+            size: 28,
           ),
         ),
         title: Text(
           schema.name,
           style: AppTheme.titleMedium.copyWith(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
           ),
         ),
         subtitle: Column(
@@ -326,27 +384,56 @@ You sometimes feel that you are fundamentally flawed or defective in some way. T
             const SizedBox(height: AppTheme.spacingS),
             Row(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.resultsScoreLabel(schema.score),
-                  style: AppTheme.bodySmall.copyWith(
-                    color: AppTheme.textSecondary,
-                  ),
-                ),
-                const SizedBox(width: AppTheme.spacingS),
+                // Score display
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: AppTheme.spacingS,
+                    horizontal: AppTheme.spacingM,
                     vertical: AppTheme.spacingXS,
                   ),
                   decoration: BoxDecoration(
-                    color: _getSeverityColor(schema.severity).withOpacity(0.1),
+                    gradient: LinearGradient(
+                      colors: [
+                        severityColor.withOpacity(0.12),
+                        severityColor.withOpacity(0.06),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                     borderRadius: BorderRadius.circular(AppTheme.radiusS),
+                    border: Border.all(
+                      color: severityColor.withOpacity(0.15),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(
+                    'Score: ${schema.score.toStringAsFixed(1)}/10',
+                    style: AppTheme.labelMedium.copyWith(
+                      color: severityColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppTheme.spacingS),
+                // Severity badge
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppTheme.spacingM,
+                    vertical: AppTheme.spacingXS,
+                  ),
+                  decoration: BoxDecoration(
+                    color: severityColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusS),
+                    border: Border.all(
+                      color: severityColor.withOpacity(0.3),
+                      width: 1,
+                    ),
                   ),
                   child: Text(
                     _getSeverityText(schema.severity),
                     style: AppTheme.labelSmall.copyWith(
-                      color: _getSeverityColor(schema.severity),
-                      fontWeight: FontWeight.w600,
+                      color: severityColor,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.2,
                     ),
                   ),
                 ),

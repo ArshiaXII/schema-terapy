@@ -43,7 +43,7 @@ class FadePageRoute<T> extends PageRoute<T> {
     Widget child,
   ) {
     return FadeTransition(
-      opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
       child: child,
     );
   }
@@ -95,9 +95,9 @@ class SlidePageRoute<T> extends PageRoute<T> {
       position: Tween<Offset>(
         begin: const Offset(1, 0),
         end: Offset.zero,
-      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
+      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic)),
       child: FadeTransition(
-        opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
         child: child,
       ),
     );
@@ -147,11 +147,11 @@ class ScalePageRoute<T> extends PageRoute<T> {
     Widget child,
   ) {
     return ScaleTransition(
-      scale: Tween<double>(begin: 0.85, end: 1).animate(
-        CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+      scale: Tween<double>(begin: 0.8, end: 1).animate(
+        CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
       ),
       child: FadeTransition(
-        opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        opacity: CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
         child: child,
       ),
     );
@@ -202,14 +202,14 @@ class RotatePageRoute<T> extends PageRoute<T> {
   ) {
     return RotationTransition(
       turns: Tween<double>(begin: 0, end: 0.5).animate(
-        CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
       ),
       child: ScaleTransition(
-        scale: Tween<double>(begin: 0.85, end: 1).animate(
-          CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        scale: Tween<double>(begin: 0.8, end: 1).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
         ),
         child: FadeTransition(
-          opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
           child: child,
         ),
       ),

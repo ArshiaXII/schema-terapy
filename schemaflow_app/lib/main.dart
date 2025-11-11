@@ -150,11 +150,10 @@ class _AppInitializerState extends State<AppInitializer> {
           if (screen == 'home' || screen == null) {
             // Auto-login for testing
             if (!userProvider.isAuthenticated) {
-              Future.microtask(() {
-                userProvider.signIn('test@example.com', 'password').then((_) {
-                  // Subscribe to premium for testing
-                  userProvider.subscribeToPremium(SubscriptionType.yearly);
-                });
+              Future.microtask(() async {
+                await userProvider.signIn('test@example.com', 'password');
+                // Subscribe to premium for testing
+                await userProvider.subscribeToPremium(SubscriptionType.yearly);
               });
             }
             return const HomeScreen();

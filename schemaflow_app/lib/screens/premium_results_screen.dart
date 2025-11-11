@@ -40,35 +40,95 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.yourResults),
         elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppTheme.spacingL),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Summary card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.assessmentSummary,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      '${AppLocalizations.of(context)!.totalQuestions}: ${result.totalQuestions}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '${AppLocalizations.of(context)!.completedAt}: ${result.completedAt.toString().split('.')[0]}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+            Container(
+              padding: const EdgeInsets.all(AppTheme.spacingXL),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    AppTheme.primaryTeal.withOpacity(0.1),
+                    AppTheme.accentGreen.withOpacity(0.05),
                   ],
                 ),
+                borderRadius: BorderRadius.circular(AppTheme.radiusL),
+                border: Border.all(
+                  color: AppTheme.primaryTeal.withOpacity(0.15),
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.primaryTeal.withOpacity(0.1),
+                    blurRadius: 20,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.assessmentSummary,
+                    style: AppTheme.titleLarge.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.spacingXL),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Questions',
+                              style: AppTheme.bodySmall.copyWith(
+                                color: AppTheme.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '${result.totalQuestions}',
+                              style: AppTheme.titleLarge.copyWith(
+                                color: AppTheme.primaryTeal,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Completed',
+                              style: AppTheme.bodySmall.copyWith(
+                                color: AppTheme.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              result.completedAt.toString().split('.')[0],
+                              style: AppTheme.bodySmall.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 24),
@@ -86,63 +146,118 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
               final percentage = ((score - 1) / 5 * 100).toStringAsFixed(0);
 
               return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(schema.icon, color: schema.color, size: 28),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Localizations.localeOf(context)
-                                                .languageCode ==
-                                            'tr'
-                                        ? schema.nameTr
-                                        : schema.nameEn,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium,
-                                  ),
-                                  Text(
-                                    'Score: ${score.toStringAsFixed(1)}/6',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: LinearProgressIndicator(
-                            value: (score - 1) / 5,
-                            minHeight: 8,
-                            backgroundColor: Colors.grey[300],
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              schema.color,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          Localizations.localeOf(context).languageCode == 'tr'
-                              ? schema.descriptionTr
-                              : schema.descriptionEn,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
+                padding: const EdgeInsets.only(bottom: AppTheme.spacingM),
+                child: Container(
+                  padding: const EdgeInsets.all(AppTheme.spacingL),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withOpacity(0.95),
+                        Colors.white.withOpacity(0.85),
                       ],
                     ),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusL),
+                    border: Border.all(
+                      color: schema.color.withOpacity(0.15),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: schema.color.withOpacity(0.12),
+                        blurRadius: 20,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  schema.color.withOpacity(0.15),
+                                  schema.color.withOpacity(0.08),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                              border: Border.all(
+                                color: schema.color.withOpacity(0.2),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Icon(schema.icon, color: schema.color, size: 28),
+                          ),
+                          const SizedBox(width: AppTheme.spacingM),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Localizations.localeOf(context)
+                                              .languageCode ==
+                                          'tr'
+                                      ? schema.nameTr
+                                      : schema.nameEn,
+                                  style: AppTheme.titleMedium.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppTheme.spacingS,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: schema.color.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    'Score: ${score.toStringAsFixed(1)}/6',
+                                    style: AppTheme.labelSmall.copyWith(
+                                      color: schema.color,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppTheme.spacingL),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: LinearProgressIndicator(
+                          value: (score - 1) / 5,
+                          minHeight: 8,
+                          backgroundColor: schema.color.withOpacity(0.1),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            schema.color,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppTheme.spacingL),
+                      Text(
+                        Localizations.localeOf(context).languageCode == 'tr'
+                            ? schema.descriptionTr
+                            : schema.descriptionEn,
+                        style: AppTheme.bodySmall.copyWith(
+                          color: AppTheme.textSecondary,
+                          height: 1.6,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

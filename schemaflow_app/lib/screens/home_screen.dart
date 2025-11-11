@@ -174,20 +174,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final user = userProvider.currentUser;
         final l = AppLocalizations.of(context)!;
         final firstName = user?.name.split(' ').first ?? l.userDefaultName;
-        
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l.greetingHello(firstName),
-              style: AppTheme.displayMedium,
-            ),
-            const SizedBox(height: AppTheme.spacingS),
-            Text(
-              l.homeExplorePrompt,
-              style: AppTheme.bodyLarge.copyWith(
-                color: AppTheme.textSecondary,
+            // Greeting with gradient text
+            ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                colors: [AppTheme.primaryTeal, AppTheme.accentGreen],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(bounds),
+              child: Text(
+                l.greetingHello(firstName),
+                style: AppTheme.displayMedium.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -0.5,
+                ),
               ),
+            ),
+            const SizedBox(height: AppTheme.spacingM),
+            // Subtitle with better styling
+            Row(
+              children: [
+                Container(
+                  width: 4,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [AppTheme.primaryTeal, AppTheme.accentGreen],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(width: AppTheme.spacingM),
+                Expanded(
+                  child: Text(
+                    l.homeExplorePrompt,
+                    style: AppTheme.bodyLarge.copyWith(
+                      color: AppTheme.textSecondary,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         );
@@ -199,12 +233,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Consumer<UserProvider>(
       builder: (context, userProvider, child) {
         final hasCompleted = userProvider.hasCompletedQuestionnaire;
-        
+
         return Container(
           width: double.infinity,
           padding: const EdgeInsets.all(AppTheme.spacingXL),
           decoration: BoxDecoration(
-            gradient: hasCompleted 
+            gradient: hasCompleted
                 ? const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -212,44 +246,68 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   )
                 : AppTheme.primaryGradient,
             borderRadius: BorderRadius.circular(AppTheme.radiusL),
-            boxShadow: AppTheme.shadowMedium,
+            boxShadow: [
+              BoxShadow(
+                color: hasCompleted
+                    ? const Color(0xFF5DB075).withOpacity(0.4)
+                    : AppTheme.primaryTeal.withOpacity(0.4),
+                blurRadius: 30,
+                spreadRadius: 2,
+                offset: const Offset(0, 15),
+              ),
+            ],
           ),
           child: Column(
             children: [
-              Icon(
-                hasCompleted 
-                    ? CupertinoIcons.doc_text_search 
-                    : CupertinoIcons.play_circle,
-                size: 48,
-                color: Colors.white,
+              // Animated icon container
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.15),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.3),
+                    width: 2,
+                  ),
+                ),
+                child: Icon(
+                  hasCompleted
+                      ? CupertinoIcons.doc_text_search
+                      : CupertinoIcons.play_circle,
+                  size: 40,
+                  color: Colors.white,
+                ),
               ),
-              
-              const SizedBox(height: AppTheme.spacingL),
-              
+
+              const SizedBox(height: AppTheme.spacingXL),
+
               Text(
                 hasCompleted
                     ? AppLocalizations.of(context)!.analysisReady
                     : AppLocalizations.of(context)!.analysisAwaits,
                 style: AppTheme.headlineMedium.copyWith(
                   color: Colors.white,
+                  fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
               ),
-              
-              const SizedBox(height: AppTheme.spacingS),
-              
+
+              const SizedBox(height: AppTheme.spacingM),
+
               Text(
                 hasCompleted
                     ? AppLocalizations.of(context)!.homeCompletedDescription
                     : AppLocalizations.of(context)!.homePromptDescription,
                 style: AppTheme.bodyMedium.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withOpacity(0.85),
+                  height: 1.6,
                 ),
                 textAlign: TextAlign.center,
               ),
-              
+
               const SizedBox(height: AppTheme.spacingXL),
-              
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -270,8 +328,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: hasCompleted 
-                        ? AppTheme.accentGreen 
+                    foregroundColor: hasCompleted
+                        ? AppTheme.accentGreen
                         : AppTheme.primaryTeal,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(
@@ -284,7 +342,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   child: Text(
                     hasCompleted ? AppLocalizations.of(context)!.viewResults : AppLocalizations.of(context)!.beginQuestionnaire,
                     style: AppTheme.titleMedium.copyWith(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.3,
                     ),
                   ),
                 ),
@@ -334,26 +393,63 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }) {
     return Container(
       padding: const EdgeInsets.all(AppTheme.spacingL),
-      decoration: AppTheme.cardDecoration,
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            size: 32,
-            color: color,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color.withOpacity(0.08),
+            color.withOpacity(0.03),
+          ],
+        ),
+        border: Border.all(
+          color: color.withOpacity(0.2),
+          width: 1.5,
+        ),
+        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
           ),
-          const SizedBox(height: AppTheme.spacingS),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color.withOpacity(0.15),
+              border: Border.all(
+                color: color.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            child: Icon(
+              icon,
+              size: 24,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: AppTheme.spacingM),
           Text(
             value,
             style: AppTheme.titleLarge.copyWith(
               color: color,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.2,
             ),
           ),
+          const SizedBox(height: AppTheme.spacingXS),
           Text(
             title,
             style: AppTheme.bodySmall.copyWith(
               color: AppTheme.textSecondary,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -445,6 +541,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       children: [
         AnimatedFeatureCard(
           title: 'Detailed Assessment',
+          subtitle: 'Deep Analysis',
           color: AppTheme.primaryTeal,
           icon: CupertinoIcons.doc_text_search,
           delayMs: 0,
@@ -458,6 +555,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         AnimatedFeatureCard(
           title: 'Schema Education',
+          subtitle: 'Learn More',
           color: AppTheme.accentGreen,
           icon: CupertinoIcons.book,
           delayMs: 100,
@@ -471,6 +569,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         AnimatedFeatureCard(
           title: 'Progress Tracking',
+          subtitle: 'Your Journey',
           color: AppTheme.warningOrange,
           icon: CupertinoIcons.chart_bar,
           delayMs: 200,
@@ -484,6 +583,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         AnimatedFeatureCard(
           title: 'Recommendations',
+          subtitle: 'Personalized',
           color: Colors.purple,
           icon: CupertinoIcons.lightbulb,
           delayMs: 300,

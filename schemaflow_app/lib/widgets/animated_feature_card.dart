@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 import '../core/theme/app_theme.dart';
 
-/// Animated premium feature card with flowing animations and visual graphics
+/// Modern animated premium feature card with glassmorphism and smooth flowing animations
 class AnimatedFeatureCard extends StatefulWidget {
   final String title;
+  final String? subtitle;
   final Color color;
   final IconData icon;
   final VoidCallback onTap;
@@ -13,6 +15,7 @@ class AnimatedFeatureCard extends StatefulWidget {
   const AnimatedFeatureCard({
     Key? key,
     required this.title,
+    this.subtitle,
     required this.color,
     required this.icon,
     required this.onTap,
@@ -25,258 +28,327 @@ class AnimatedFeatureCard extends StatefulWidget {
 
 class _AnimatedFeatureCardState extends State<AnimatedFeatureCard>
     with TickerProviderStateMixin {
-  late AnimationController _scaleController;
+  late AnimationController _entranceController;
   late AnimationController _floatController;
-  late AnimationController _shimmerController;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _floatAnimation;
-  late Animation<double> _shimmerAnimation;
+  late AnimationController _glowController;
+  late AnimationController _rotateController;
+
   bool _isHovered = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Scale animation with delay
-    _scaleController = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+    // Entrance animation
+    _entranceController = AnimationController(
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _scaleController,
-        curve: const Interval(0.0, 0.8, curve: Curves.elasticOut),
-      ),
-    );
-
-    // Floating animation (continuous)
+    // Floating animation
     _floatController = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 4000),
       vsync: this,
     )..repeat(reverse: true);
 
-    _floatAnimation = Tween<double>(begin: 0.0, end: 8.0).animate(
-      CurvedAnimation(parent: _floatController, curve: Curves.easeInOut),
-    );
+    // Glow animation
+    _glowController = AnimationController(
+      duration: const Duration(milliseconds: 2500),
+      vsync: this,
+    )..repeat(reverse: true);
 
-    // Shimmer animation (continuous)
-    _shimmerController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+    // Rotate animation
+    _rotateController = AnimationController(
+      duration: const Duration(milliseconds: 8000),
       vsync: this,
     )..repeat();
 
-    _shimmerAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _shimmerController, curve: Curves.easeInOut),
-    );
-
-    // Start animation with delay
+    // Start entrance animation with delay
     Future.delayed(Duration(milliseconds: widget.delayMs), () {
       if (mounted) {
-        _scaleController.forward();
+        _entranceController.forward();
       }
     });
   }
 
   @override
   void dispose() {
-    _scaleController.dispose();
+    _entranceController.dispose();
     _floatController.dispose();
-    _shimmerController.dispose();
+    _glowController.dispose();
+    _rotateController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: _scaleAnimation,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: AnimatedBuilder(
-            animation: _floatAnimation,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(0, -_floatAnimation.value),
-                child: child,
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    widget.color.withOpacity(0.9),
-                    widget.color.withOpacity(0.6),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                boxShadow: [
-                  BoxShadow(
-                    color: widget.color.withOpacity(_isHovered ? 0.6 : 0.3),
-                    blurRadius: _isHovered ? 30 : 15,
-                    offset: Offset(0, _isHovered ? 15 : 8),
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  // Animated background graphics
-                  _buildAnimatedBackground(),
+      scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+        CurvedAnimation(parent: _entranceController, curve: Curves.easeOutCubic),
+      ),
+      child: FadeTransition(
+        opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(parent: _entranceController, curve: Curves.easeOut),
+        ),
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          child: GestureDetector(
+            onTap: widget.onTap,
+            child: AnimatedBuilder(
+              animation: Listenable.merge([
+                _floatController,
+                _glowController,
+                _rotateController,
+              ]),
+              builder: (context, child) {
+                final floatValue = Tween<double>(begin: 0.0, end: 16.0)
+                    .evaluate(CurvedAnimation(
+                        parent: _floatController, curve: Curves.easeInOutCubic));
 
-                  // Content
-                  Positioned.fill(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Animated icon with pulse
-                        _buildAnimatedIcon(),
-                        const SizedBox(height: AppTheme.spacingS),
-                        // Title
-                        Text(
-                          widget.title,
-                          style: AppTheme.bodyMedium.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                final glowValue = Tween<double>(begin: 0.3, end: 0.8)
+                    .evaluate(CurvedAnimation(
+                        parent: _glowController, curve: Curves.easeInOutQuad));
+
+                final scaleValue = _isHovered ? 1.05 : 1.0;
+
+                return Transform.translate(
+                  offset: Offset(0, -floatValue),
+                  child: Transform.scale(
+                    scale: scaleValue,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                        boxShadow: [
+                          // Main glow shadow
+                          BoxShadow(
+                            color: widget.color.withOpacity(
+                              _isHovered ? 0.6 : glowValue * 0.4,
+                            ),
+                            blurRadius: _isHovered ? 50 : 30,
+                            spreadRadius: _isHovered ? 4 : 2,
+                            offset: Offset(0, _isHovered ? 25 : 15),
                           ),
-                          textAlign: TextAlign.center,
+                          // Secondary glow
+                          BoxShadow(
+                            color: widget.color.withOpacity(glowValue * 0.15),
+                            blurRadius: 40,
+                            spreadRadius: 8,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                        child: Stack(
+                          children: [
+                            // Glassmorphism background
+                            BackdropFilter(
+                              filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      widget.color.withOpacity(_isHovered ? 0.25 : 0.15),
+                                      widget.color.withOpacity(_isHovered ? 0.15 : 0.08),
+                                    ],
+                                  ),
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(
+                                      _isHovered ? 0.4 : 0.2,
+                                    ),
+                                    width: 1.5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Animated background painter
+                            Positioned.fill(
+                              child: CustomPaint(
+                                painter: ModernBackgroundPainter(
+                                  color: Colors.white,
+                                  rotateValue: _rotateController.value,
+                                  glowValue: glowValue,
+                                ),
+                              ),
+                            ),
+                            // Content
+                            Positioned.fill(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Animated icon with glow
+                                  Transform.scale(
+                                    scale: 1.0 + (glowValue * 0.1),
+                                    child: Container(
+                                      width: 70,
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white.withOpacity(0.1),
+                                        border: Border.all(
+                                          color: Colors.white.withOpacity(
+                                            glowValue * 0.5,
+                                          ),
+                                          width: 2.5,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.white.withOpacity(
+                                              glowValue * 0.5,
+                                            ),
+                                            blurRadius: 30,
+                                            spreadRadius: 10,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Transform.rotate(
+                                        angle: _rotateController.value * 0.2,
+                                        child: Icon(
+                                          widget.icon,
+                                          size: 36,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppTheme.spacingM),
+                                  // Title
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: AppTheme.spacingM,
+                                    ),
+                                    child: Text(
+                                      widget.title,
+                                      style: AppTheme.bodyLarge.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 0.3,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  // Subtitle if provided
+                                  if (widget.subtitle != null) ...[
+                                    const SizedBox(height: AppTheme.spacingXS),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: AppTheme.spacingM,
+                                      ),
+                                      child: Text(
+                                        widget.subtitle!,
+                                        style: AppTheme.bodySmall.copyWith(
+                                          color: Colors.white.withOpacity(0.7),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),
       ),
     );
   }
-
-  Widget _buildAnimatedBackground() {
-    return Positioned.fill(
-      child: AnimatedBuilder(
-        animation: _shimmerAnimation,
-        builder: (context, child) {
-          return CustomPaint(
-            painter: AnimatedBackgroundPainter(
-              color: Colors.white.withOpacity(0.1),
-              shimmerValue: _shimmerAnimation.value,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildAnimatedIcon() {
-    return AnimatedBuilder(
-      animation: _shimmerAnimation,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: 1.0 + (_shimmerAnimation.value * 0.1),
-          child: Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.2),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.white.withOpacity(_shimmerAnimation.value * 0.3),
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            child: Icon(
-              widget.icon,
-              size: 28,
-              color: Colors.white,
-            ),
-          ),
-        );
-      },
-    );
-  }
 }
 
-/// Custom painter for animated background graphics
-class AnimatedBackgroundPainter extends CustomPainter {
+/// Modern custom painter for smooth animated background
+class ModernBackgroundPainter extends CustomPainter {
   final Color color;
-  final double shimmerValue;
+  final double rotateValue;
+  final double glowValue;
 
-  AnimatedBackgroundPainter({
+  ModernBackgroundPainter({
     required this.color,
-    required this.shimmerValue,
+    required this.rotateValue,
+    required this.glowValue,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = 2;
+    // Subtle animated gradient overlay
+    final gradientPaint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Colors.white.withOpacity(0.05 + (glowValue * 0.05)),
+          Colors.white.withOpacity(0.02),
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    // Draw animated circles
-    final centerX = size.width * 0.8;
-    final centerY = size.height * 0.2;
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), gradientPaint);
 
-    // Outer circle
-    canvas.drawCircle(
-      Offset(centerX, centerY),
-      30 + (shimmerValue * 10),
-      paint..style = PaintingStyle.stroke,
-    );
+    // Animated decorative circles - top right
+    final topRightX = size.width * 0.85;
+    final topRightY = size.height * 0.15;
 
-    // Inner circle
-    canvas.drawCircle(
-      Offset(centerX, centerY),
-      15 + (shimmerValue * 5),
-      paint..style = PaintingStyle.stroke,
-    );
+    final circlePaint = Paint()
+      ..color = Colors.white.withOpacity(0.08 + (glowValue * 0.07))
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
 
-    // Animated dots
-    for (int i = 0; i < 3; i++) {
-      final angle = (shimmerValue * 2 * 3.14159) + (i * 2.09);
-      final x = centerX + (40 * (1 + shimmerValue * 0.3)) * Math.cos(angle);
-      final y = centerY + (40 * (1 + shimmerValue * 0.3)) * Math.sin(angle);
+    // Rotating circles
+    canvas.save();
+    canvas.translate(topRightX, topRightY);
+    canvas.rotate(rotateValue * 2 * math.pi);
+
+    canvas.drawCircle(Offset.zero, 25, circlePaint);
+    canvas.drawCircle(Offset.zero, 35, circlePaint);
+
+    canvas.restore();
+
+    // Animated dots around the circle
+    final dotPaint = Paint()
+      ..color = Colors.white.withOpacity(0.12 + (glowValue * 0.08))
+      ..style = PaintingStyle.fill;
+
+    for (int i = 0; i < 6; i++) {
+      final angle = (rotateValue * 2 * math.pi) + (i * math.pi / 3);
+      final x = topRightX + (45 * math.cos(angle));
+      final y = topRightY + (45 * math.sin(angle));
 
       canvas.drawCircle(
         Offset(x, y),
-        3 + (shimmerValue * 2),
-        paint..style = PaintingStyle.fill,
+        2.5 + (glowValue * 1.5),
+        dotPaint,
       );
     }
 
-    // Bottom left decorative elements
-    final bottomLeftX = size.width * 0.15;
-    final bottomLeftY = size.height * 0.85;
+    // Bottom left accent
+    final bottomLeftX = size.width * 0.1;
+    final bottomLeftY = size.height * 0.9;
 
-    canvas.drawCircle(
-      Offset(bottomLeftX, bottomLeftY),
-      8 + (shimmerValue * 4),
-      paint..style = PaintingStyle.fill,
-    );
+    final accentPaint = Paint()
+      ..color = Colors.white.withOpacity(0.06 + (glowValue * 0.04))
+      ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(
-      Offset(bottomLeftX + 20, bottomLeftY - 15),
-      5 + (shimmerValue * 2),
-      paint..style = PaintingStyle.fill,
-    );
+    canvas.drawCircle(Offset(bottomLeftX, bottomLeftY), 12, accentPaint);
+    canvas.drawCircle(Offset(bottomLeftX + 25, bottomLeftY - 20), 7, accentPaint);
+    canvas.drawCircle(Offset(bottomLeftX - 15, bottomLeftY - 15), 5, accentPaint);
   }
 
   @override
-  bool shouldRepaint(AnimatedBackgroundPainter oldDelegate) {
-    return oldDelegate.shimmerValue != shimmerValue;
+  bool shouldRepaint(ModernBackgroundPainter oldDelegate) {
+    return oldDelegate.rotateValue != rotateValue ||
+        oldDelegate.glowValue != glowValue;
   }
-}
-
-// Math helper
-class Math {
-  static double cos(double x) => math.cos(x);
-  static double sin(double x) => math.sin(x);
 }
 

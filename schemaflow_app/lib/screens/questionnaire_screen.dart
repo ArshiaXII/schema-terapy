@@ -297,27 +297,60 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: _currentQuestionIndex > 0
-          ? IconButton(
-              onPressed: _previousQuestion,
-              icon: const Icon(CupertinoIcons.chevron_left),
+          ? Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.primaryTeal.withOpacity(0.1),
+                border: Border.all(
+                  color: AppTheme.primaryTeal.withOpacity(0.3),
+                  width: 1.5,
+                ),
+              ),
+              child: IconButton(
+                onPressed: _previousQuestion,
+                icon: const Icon(CupertinoIcons.chevron_left),
+                color: AppTheme.primaryTeal,
+              ),
             )
           : null,
-      title: Text(
-        AppLocalizations.of(context)!.questionProgress(
-          _currentQuestionIndex + 1,
-          _questions.length,
-        ),
-        style: AppTheme.titleMedium,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Question ${_currentQuestionIndex + 1} of ${_questions.length}',
+            style: AppTheme.bodySmall.copyWith(
+              color: AppTheme.textSecondary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '${(_progress * 100).toStringAsFixed(0)}% Complete',
+            style: AppTheme.titleMedium.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(8),
+        preferredSize: const Size.fromHeight(12),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: AppTheme.spacingL),
-          child: LinearProgressIndicator(
-            value: _progress,
-            backgroundColor: AppTheme.textTertiary.withOpacity(0.2),
-            valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primaryTeal),
-            borderRadius: BorderRadius.circular(4),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: _progress,
+              backgroundColor: AppTheme.textTertiary.withOpacity(0.15),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                LinearGradient(
+                  colors: [AppTheme.primaryTeal, AppTheme.accentGreen],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ).colors[0],
+              ),
+              minHeight: 6,
+            ),
           ),
         ),
       ),
@@ -376,14 +409,56 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppTheme.spacingXL),
-      decoration: AppTheme.elevatedCardDecoration,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.95),
+            Colors.white.withOpacity(0.85),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppTheme.radiusL),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryTeal.withOpacity(0.15),
+            blurRadius: 25,
+            spreadRadius: 2,
+            offset: const Offset(0, 10),
+          ),
+        ],
+        border: Border.all(
+          color: AppTheme.primaryTeal.withOpacity(0.1),
+          width: 1.5,
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            CupertinoIcons.quote_bubble,
-            size: 48,
-            color: AppTheme.primaryTeal.withOpacity(0.7),
+          // Icon with gradient background
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.primaryTeal.withOpacity(0.15),
+                  AppTheme.accentGreen.withOpacity(0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(
+                color: AppTheme.primaryTeal.withOpacity(0.2),
+                width: 2,
+              ),
+            ),
+            child: Icon(
+              CupertinoIcons.quote_bubble,
+              size: 36,
+              color: AppTheme.primaryTeal,
+            ),
           ),
 
           const SizedBox(height: AppTheme.spacingXL),
@@ -391,27 +466,41 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
           Text(
             question.getText(localizations),
             style: AppTheme.headlineMedium.copyWith(
-              height: 1.4,
+              height: 1.5,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.3,
             ),
             textAlign: TextAlign.center,
           ),
-          
-          const SizedBox(height: AppTheme.spacingL),
-          
+
+          const SizedBox(height: AppTheme.spacingXL),
+
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: AppTheme.spacingM,
               vertical: AppTheme.spacingS,
             ),
             decoration: BoxDecoration(
-              color: AppTheme.primaryTeal.withOpacity(0.1),
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.primaryTeal.withOpacity(0.12),
+                  AppTheme.accentGreen.withOpacity(0.08),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
               borderRadius: BorderRadius.circular(AppTheme.radiusS),
+              border: Border.all(
+                color: AppTheme.primaryTeal.withOpacity(0.15),
+                width: 1,
+              ),
             ),
             child: Text(
               question.getCategory(localizations),
               style: AppTheme.labelMedium.copyWith(
                 color: AppTheme.primaryTeal,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.3,
               ),
             ),
           ),
