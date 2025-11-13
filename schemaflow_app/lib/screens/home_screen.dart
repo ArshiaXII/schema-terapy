@@ -547,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           delayMs: 0,
           onTap: () {
             Navigator.of(context).push(
-              RotatePageRoute(
+              MaterialPageRoute(
                 builder: (context) => const PremiumQuestionnaireScreen(),
               ),
             );
