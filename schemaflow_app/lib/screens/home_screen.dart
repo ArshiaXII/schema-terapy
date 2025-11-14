@@ -13,6 +13,8 @@ import 'premium_questionnaire_screen.dart';
 import 'schema_education_screen.dart';
 import 'assessment_comparison_screen.dart';
 import 'therapy_recommendations_screen.dart';
+import 'schema_chat_screen.dart';
+import '../models/schema_therapy_data.dart';
 
 /// Home screen - main dashboard after login
 class HomeScreen extends StatefulWidget {
@@ -531,6 +533,106 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget _buildPremiumFeaturesGrid(BuildContext context) {
+    final userProvider = context.read<UserProvider>();
+    final premiumResult = userProvider.premiumQuestionnaireResult;
+
+    final features = [
+      {
+        'title': 'Detailed Assessment',
+        'subtitle': 'Deep Analysis',
+        'color': AppTheme.primaryTeal,
+        'icon': CupertinoIcons.doc_text_search,
+        'delayMs': 0,
+        'onTap': () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const PremiumQuestionnaireScreen(),
+            ),
+          );
+        },
+      },
+      {
+        'title': 'Schema Education',
+        'subtitle': 'Learn More',
+        'color': AppTheme.accentGreen,
+        'icon': CupertinoIcons.book,
+        'delayMs': 100,
+        'onTap': () {
+          Navigator.of(context).push(
+            FadePageRoute(
+              builder: (context) => const SchemaEducationScreen(schemaId: 1),
+            ),
+          );
+        },
+      },
+      {
+        'title': 'Progress Tracking',
+        'subtitle': 'Your Journey',
+        'color': AppTheme.warningOrange,
+        'icon': CupertinoIcons.chart_bar,
+        'delayMs': 200,
+        'onTap': () {
+          Navigator.of(context).push(
+            SlidePageRoute(
+              builder: (context) => const AssessmentComparisonScreen(),
+            ),
+          );
+        },
+      },
+      {
+        'title': 'Recommendations',
+        'subtitle': 'Personalized',
+        'color': Colors.purple,
+        'icon': CupertinoIcons.lightbulb,
+        'delayMs': 300,
+        'onTap': () {
+          if (premiumResult != null) {
+            Navigator.of(context).push(
+              SlidePageRoute(
+                builder: (context) => TherapyRecommendationsScreen(
+                  schemaScores: premiumResult.schemaScores,
+                ),
+              ),
+            );
+          }
+        },
+      },
+      {
+        'title': 'Schema Chat',
+        'subtitle': 'AI Assistant',
+        'color': Colors.blue,
+        'icon': CupertinoIcons.chat_bubble_text,
+        'delayMs': 400,
+        'onTap': () {
+          if (premiumResult != null && premiumResult.schemaScores.isNotEmpty) {
+            // Get the dominant schema
+            final dominantSchemaId = premiumResult.schemaScores.entries
+                .reduce((a, b) => a.value > b.value ? a : b)
+                .key;
+            final schema = SchemaTherapyDatabase.getSchemaById(dominantSchemaId);
+
+            if (schema != null) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SchemaChatScreen(
+                    schema: schema,
+                    schemaScores: premiumResult.schemaScores,
+                  ),
+                ),
+              );
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please complete the Detailed Assessment first'),
+                duration: Duration(seconds: 2),
+              ),
+            );
+          }
+        },
+      },
+    ];
+
     return GridView.count(
       crossAxisCount: 2,
       shrinkWrap: true,
@@ -538,70 +640,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       mainAxisSpacing: AppTheme.spacingM,
       crossAxisSpacing: AppTheme.spacingM,
       childAspectRatio: 1.0,
-      children: [
-        AnimatedFeatureCard(
-          title: 'Detailed Assessment',
-          subtitle: 'Deep Analysis',
-          color: AppTheme.primaryTeal,
-          icon: CupertinoIcons.doc_text_search,
-          delayMs: 0,
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const PremiumQuestionnaireScreen(),
-              ),
-            );
-          },
-        ),
-        AnimatedFeatureCard(
-          title: 'Schema Education',
-          subtitle: 'Learn More',
-          color: AppTheme.accentGreen,
-          icon: CupertinoIcons.book,
-          delayMs: 100,
-          onTap: () {
-            Navigator.of(context).push(
-              FadePageRoute(
-                builder: (context) => const SchemaEducationScreen(schemaId: 1),
-              ),
-            );
-          },
-        ),
-        AnimatedFeatureCard(
-          title: 'Progress Tracking',
-          subtitle: 'Your Journey',
-          color: AppTheme.warningOrange,
-          icon: CupertinoIcons.chart_bar,
-          delayMs: 200,
-          onTap: () {
-            Navigator.of(context).push(
-              SlidePageRoute(
-                builder: (context) => const AssessmentComparisonScreen(),
-              ),
-            );
-          },
-        ),
-        AnimatedFeatureCard(
-          title: 'Recommendations',
-          subtitle: 'Personalized',
-          color: Colors.purple,
-          icon: CupertinoIcons.lightbulb,
-          delayMs: 300,
-          onTap: () {
-            final userProvider = context.read<UserProvider>();
-            final result = userProvider.premiumQuestionnaireResult;
-            if (result != null) {
-              Navigator.of(context).push(
-                SlidePageRoute(
-                  builder: (context) => TherapyRecommendationsScreen(
-                    schemaScores: result.schemaScores,
-                  ),
-                ),
-              );
-            }
-          },
-        ),
-      ],
+      children: List.generate(features.length, (index) {
+        final feature = features[index];
+        return AnimatedFeatureCard(
+          title: feature['title'] as String,
+          subtitle: feature['subtitle'] as String,
+          color: feature['color'] as Color,
+          icon: feature['icon'] as IconData,
+          delayMs: feature['delayMs'] as int,
+          onTap: feature['onTap'] as VoidCallback,
+        );
+      }),
     );
   }
 
