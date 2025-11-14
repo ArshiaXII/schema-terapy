@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/schema_therapy_data.dart';
 import '../services/schema_chat_service.dart';
 
@@ -38,25 +39,24 @@ class _SchemaChatScreenState extends State<SchemaChatScreen> {
   }
 
   void _addInitialGreeting() {
-    final greeting = '''Hello! I'm here to help you understand and work with ${widget.schema.nameEn}.
+    // This will be set in build() with proper context
+  }
 
-Based on your test results, your score for this schema is ${widget.schemaScores[widget.schema.id]?.toStringAsFixed(1) ?? 'N/A'}/6.
+  String _buildGreetingMessage(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final score = widget.schemaScores[widget.schema.id]?.toStringAsFixed(1) ?? 'N/A';
 
-Feel free to ask me anything about:
-• What this schema means
-• How it affects you
-• Where it comes from
-• How to heal from it
+    return '''${l10n.schemaGreeting(widget.schema.nameEn)}
 
-What would you like to know?''';
+${l10n.basedOnTestResults(score)}
 
-    _chatService.conversationHistory.add(
-      ChatMessage(
-        text: greeting,
-        isUser: false,
-        timestamp: DateTime.now(),
-      ),
-    );
+${l10n.feelFreeToAsk}
+• ${l10n.whatThisSchemaMeans}
+• ${l10n.howItAffectsYou}
+• ${l10n.whereItComesFrom}
+• ${l10n.howToHealFromIt}
+
+${l10n.whatWouldYouLikeToKnow}''';
   }
 
   @override
@@ -91,6 +91,18 @@ What would you like to know?''';
   @override
   Widget build(BuildContext context) {
     final isSmallScreen = MediaQuery.of(context).size.width < 600;
+    final l10n = AppLocalizations.of(context)!;
+
+    // Add initial greeting if conversation is empty
+    if (_chatService.conversationHistory.isEmpty) {
+      _chatService.conversationHistory.add(
+        ChatMessage(
+          text: _buildGreetingMessage(context),
+          isUser: false,
+          timestamp: DateTime.now(),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -107,8 +119,8 @@ What would you like to know?''';
       body: Column(
         children: [
           // Schema info bar
-          _buildSchemaInfoBar(context),
-          
+          _buildSchemaInfoBar(context, l10n),
+
           // Messages
           Expanded(
             child: ListView.builder(
@@ -121,15 +133,15 @@ What would you like to know?''';
               },
             ),
           ),
-          
+
           // Input field
-          _buildInputField(context, isSmallScreen),
+          _buildInputField(context, isSmallScreen, l10n),
         ],
       ),
     );
   }
 
-  Widget _buildSchemaInfoBar(BuildContext context) {
+  Widget _buildSchemaInfoBar(BuildContext context, AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -154,7 +166,7 @@ What would you like to know?''';
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your Score',
+                  l10n.yourScore,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w600,
@@ -177,7 +189,7 @@ What would you like to know?''';
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              _getSeverityLabel(widget.schemaScores[widget.schema.id] ?? 0),
+              _getSeverityLabel(widget.schemaScores[widget.schema.id] ?? 0, l10n),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: widget.schema.color,
                     fontWeight: FontWeight.w600,
@@ -269,7 +281,7 @@ What would you like to know?''';
     );
   }
 
-  Widget _buildInputField(BuildContext context, bool isSmallScreen) {
+  Widget _buildInputField(BuildContext context, bool isSmallScreen, AppLocalizations l10n) {
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
       decoration: BoxDecoration(
@@ -288,7 +300,7 @@ What would you like to know?''';
               controller: _messageController,
               enabled: !_isLoading,
               decoration: InputDecoration(
-                hintText: 'Ask me anything...',
+                hintText: l10n.askMeAnything,
                 hintStyle: TextStyle(color: Colors.grey[400]),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
@@ -354,12 +366,12 @@ What would you like to know?''';
     );
   }
 
-  String _getSeverityLabel(double score) {
-    if (score <= 2) return 'Low';
-    if (score <= 3) return 'Moderate';
-    if (score <= 4) return 'Significant';
-    if (score <= 5) return 'High';
-    return 'Very High';
+  String _getSeverityLabel(double score, AppLocalizations l10n) {
+    if (score <= 2) return l10n.low;
+    if (score <= 3) return l10n.moderate;
+    if (score <= 4) return l10n.significant;
+    if (score <= 5) return l10n.high;
+    return l10n.veryHigh;
   }
 }
 

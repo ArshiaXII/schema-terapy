@@ -1351,6 +1351,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Progress'**
   String get viewProgress;
+
+  /// No description provided for @premiumFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Features'**
+  String get premiumFeatures;
+
+  /// No description provided for @detailedAssessmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Assessment'**
+  String get detailedAssessmentTitle;
+
+  /// No description provided for @detailedAssessmentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Analysis'**
+  String get detailedAssessmentSubtitle;
+
+  /// No description provided for @schemaEducationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Education'**
+  String get schemaEducationTitle;
+
+  /// No description provided for @schemaEducationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn More'**
+  String get schemaEducationSubtitle;
+
+  /// No description provided for @progressTrackingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Tracking'**
+  String get progressTrackingTitle;
+
+  /// No description provided for @progressTrackingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Journey'**
+  String get progressTrackingSubtitle;
+
+  /// No description provided for @recommendationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendations'**
+  String get recommendationsTitle;
+
+  /// No description provided for @recommendationsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized'**
+  String get recommendationsSubtitle;
+
+  /// No description provided for @schemaChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema Chat'**
+  String get schemaChatTitle;
+
+  /// No description provided for @schemaChatSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistant'**
+  String get schemaChatSubtitle;
+
+  /// No description provided for @difficultyToHeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty to Heal'**
+  String get difficultyToHeal;
+
+  /// No description provided for @impactLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Impact Level'**
+  String get impactLevel;
+
+  /// No description provided for @whatIsSchema.
+  ///
+  /// In en, this message translates to:
+  /// **'What is {schema}?'**
+  String whatIsSchema(String schema);
+
+  /// No description provided for @childhoodOrigins.
+  ///
+  /// In en, this message translates to:
+  /// **'Childhood Origins'**
+  String get childhoodOrigins;
+
+  /// No description provided for @howThisSchemaAffectsYou.
+  ///
+  /// In en, this message translates to:
+  /// **'How This Schema Affects You'**
+  String get howThisSchemaAffectsYou;
+
+  /// No description provided for @pathToHealing.
+  ///
+  /// In en, this message translates to:
+  /// **'Path to Healing'**
+  String get pathToHealing;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @origins.
+  ///
+  /// In en, this message translates to:
+  /// **'Origins'**
+  String get origins;
+
+  /// No description provided for @effects.
+  ///
+  /// In en, this message translates to:
+  /// **'Effects'**
+  String get effects;
+
+  /// No description provided for @healing.
+  ///
+  /// In en, this message translates to:
+  /// **'Healing'**
+  String get healing;
+
+  /// No description provided for @completeDetailedAssessmentFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the Detailed Assessment first'**
+  String get completeDetailedAssessmentFirst;
 }
 
 class _AppLocalizationsDelegate

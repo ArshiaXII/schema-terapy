@@ -685,4 +685,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewProgress => 'View Progress';
+
+  @override
+  String get premiumFeatures => 'Premium Features';
+
+  @override
+  String get detailedAssessmentTitle => 'Detailed Assessment';
+
+  @override
+  String get detailedAssessmentSubtitle => 'Deep Analysis';
+
+  @override
+  String get schemaEducationTitle => 'Schema Education';
+
+  @override
+  String get schemaEducationSubtitle => 'Learn More';
+
+  @override
+  String get progressTrackingTitle => 'Progress Tracking';
+
+  @override
+  String get progressTrackingSubtitle => 'Your Journey';
+
+  @override
+  String get recommendationsTitle => 'Recommendations';
+
+  @override
+  String get recommendationsSubtitle => 'Personalized';
+
+  @override
+  String get schemaChatTitle => 'Schema Chat';
+
+  @override
+  String get schemaChatSubtitle => 'AI Assistant';
+
+  @override
+  String get difficultyToHeal => 'Difficulty to Heal';
+
+  @override
+  String get impactLevel => 'Impact Level';
+
+  @override
+  String whatIsSchema(String schema) {
+    return 'What is $schema?';
+  }
+
+  @override
+  String get childhoodOrigins => 'Childhood Origins';
+
+  @override
+  String get howThisSchemaAffectsYou => 'How This Schema Affects You';
+
+  @override
+  String get pathToHealing => 'Path to Healing';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get origins => 'Origins';
+
+  @override
+  String get effects => 'Effects';
+
+  @override
+  String get healing => 'Healing';
+
+  @override
+  String get completeDetailedAssessmentFirst =>
+      'Please complete the Detailed Assessment first';
 }

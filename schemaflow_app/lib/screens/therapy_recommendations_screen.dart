@@ -42,7 +42,7 @@ class _TherapyRecommendationsScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Therapy Recommendations'),
+        title: Text(l10n.therapyRecommendations),
         backgroundColor: AppTheme.primaryTeal,
         foregroundColor: Colors.white,
       ),
@@ -66,7 +66,7 @@ class _TherapyRecommendationsScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Personalized Therapy Plan',
+                      l10n.personalizedTherapyPlan,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppTheme.primaryTeal,
@@ -74,7 +74,7 @@ class _TherapyRecommendationsScreenState
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Based on your assessment results, here are recommended therapeutic approaches for your dominant schemas.',
+                      l10n.basedOnAssessmentResults,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.grey[700],
                             height: 1.5,
@@ -97,6 +97,7 @@ class _TherapyRecommendationsScreenState
                     index,
                     schema,
                     score,
+                    l10n,
                   ),
                 );
               }).toList(),
@@ -112,6 +113,7 @@ class _TherapyRecommendationsScreenState
     int index,
     SchemaTherapySchema schema,
     double score,
+    AppLocalizations l10n,
   ) {
     return Card(
       elevation: 2,
@@ -156,7 +158,7 @@ class _TherapyRecommendationsScreenState
                             ),
                       ),
                       Text(
-                        'Score: ${score.toStringAsFixed(1)}/6.0',
+                        '${l10n.score}: ${score.toStringAsFixed(1)}/6.0',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Colors.grey[600],
                             ),
@@ -169,7 +171,7 @@ class _TherapyRecommendationsScreenState
             const SizedBox(height: 12),
             // Healing approach
             Text(
-              'Recommended Approach:',
+              l10n.recommendedApproach,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primaryTeal,
@@ -186,14 +188,14 @@ class _TherapyRecommendationsScreenState
             const SizedBox(height: 12),
             // Suggested exercises
             Text(
-              'Suggested Practices:',
+              l10n.suggestedPractices,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primaryTeal,
                   ),
             ),
             const SizedBox(height: 8),
-            ..._getSuggestedExercises(schema).map((exercise) {
+            ..._getSuggestedExercises(schema, l10n).map((exercise) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Row(
@@ -224,14 +226,14 @@ class _TherapyRecommendationsScreenState
     );
   }
 
-  List<String> _getSuggestedExercises(SchemaTherapySchema schema) {
-    // Return suggested exercises based on schema
+  List<String> _getSuggestedExercises(SchemaTherapySchema schema, AppLocalizations l10n) {
+    // Return suggested exercises based on schema - localized
     return [
-      'Mindfulness meditation (10-15 minutes daily)',
-      'Journaling about schema triggers',
-      'Cognitive restructuring exercises',
-      'Behavioral experiments to test beliefs',
-      'Schema imagery rescripting',
+      l10n.mindfulnessMeditation,
+      l10n.journalingAboutSchemaTriggers,
+      l10n.cognitiveRestructuring,
+      l10n.behavioralExperiments,
+      l10n.schemaImageryRescripting,
     ];
   }
 }

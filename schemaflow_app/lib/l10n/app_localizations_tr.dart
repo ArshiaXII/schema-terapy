@@ -691,4 +691,73 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get viewProgress => 'İlerlemeyi Görüntüle';
+
+  @override
+  String get premiumFeatures => 'Premium Özellikler';
+
+  @override
+  String get detailedAssessmentTitle => 'Detaylı Değerlendirme';
+
+  @override
+  String get detailedAssessmentSubtitle => 'Derin Analiz';
+
+  @override
+  String get schemaEducationTitle => 'Şema Eğitimi';
+
+  @override
+  String get schemaEducationSubtitle => 'Daha Fazla Bilgi';
+
+  @override
+  String get progressTrackingTitle => 'İlerleme Takibi';
+
+  @override
+  String get progressTrackingSubtitle => 'Senin Yolculuğun';
+
+  @override
+  String get recommendationsTitle => 'Öneriler';
+
+  @override
+  String get recommendationsSubtitle => 'Kişiselleştirilmiş';
+
+  @override
+  String get schemaChatTitle => 'Şema Sohbeti';
+
+  @override
+  String get schemaChatSubtitle => 'AI Asistanı';
+
+  @override
+  String get difficultyToHeal => 'İyileşme Zorluğu';
+
+  @override
+  String get impactLevel => 'Etki Seviyesi';
+
+  @override
+  String whatIsSchema(String schema) {
+    return '$schema Nedir?';
+  }
+
+  @override
+  String get childhoodOrigins => 'Çocukluk Kökleri';
+
+  @override
+  String get howThisSchemaAffectsYou => 'Bu Şema Seni Nasıl Etkiliyor';
+
+  @override
+  String get pathToHealing => 'İyileşme Yolu';
+
+  @override
+  String get overview => 'Genel Bakış';
+
+  @override
+  String get origins => 'Kökenler';
+
+  @override
+  String get effects => 'Etkiler';
+
+  @override
+  String get healing => 'İyileşme';
+
+  @override
+  String get completeDetailedAssessmentFirst =>
+      'Lütfen önce Detaylı Değerlendirmeyi tamamlayın';
 }
