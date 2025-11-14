@@ -1265,13 +1265,13 @@ abstract class AppLocalizations {
   /// No description provided for @recommendedApproach.
   ///
   /// In en, this message translates to:
-  /// **'Recommended Approach'**
+  /// **'Recommended Approach:'**
   String get recommendedApproach;
 
   /// No description provided for @suggestedPractices.
   ///
   /// In en, this message translates to:
-  /// **'Suggested Practices'**
+  /// **'Suggested Practices:'**
   String get suggestedPractices;
 
   /// No description provided for @schemaEducation.
@@ -1483,6 +1483,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please complete the Detailed Assessment first'**
   String get completeDetailedAssessmentFirst;
+
+  /// No description provided for @basedOnAssessmentResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your assessment results, here are recommended therapeutic approaches for your dominant schemas.'**
+  String get basedOnAssessmentResults;
+
+  /// No description provided for @score.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get score;
+
+  /// No description provided for @localizationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Localization Info'**
+  String get localizationInfo;
+
+  /// No description provided for @currentLocale.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Locale'**
+  String get currentLocale;
+
+  /// No description provided for @defaultLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Language'**
+  String get defaultLanguage;
+
+  /// No description provided for @mindfulnessMeditation.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindfulness meditation (10-15 minutes daily)'**
+  String get mindfulnessMeditation;
+
+  /// No description provided for @journalingAboutSchemaTriggers.
+  ///
+  /// In en, this message translates to:
+  /// **'Journaling about schema triggers'**
+  String get journalingAboutSchemaTriggers;
+
+  /// No description provided for @cognitiveRestructuring.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive restructuring exercises'**
+  String get cognitiveRestructuring;
+
+  /// No description provided for @behavioralExperiments.
+  ///
+  /// In en, this message translates to:
+  /// **'Behavioral experiments to test beliefs'**
+  String get behavioralExperiments;
+
+  /// No description provided for @schemaImageryRescripting.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema imagery rescripting'**
+  String get schemaImageryRescripting;
+
+  /// No description provided for @yourScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Score'**
+  String get yourScore;
+
+  /// No description provided for @askMeAnything.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask me anything...'**
+  String get askMeAnything;
+
+  /// No description provided for @schemaGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello! I\'m here to help you understand and work with {schema}.'**
+  String schemaGreeting(String schema);
+
+  /// No description provided for @basedOnTestResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your test results, your score for this schema is {score}/6.'**
+  String basedOnTestResults(String score);
+
+  /// No description provided for @feelFreeToAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Feel free to ask me anything about:'**
+  String get feelFreeToAsk;
+
+  /// No description provided for @whatThisSchemaMeans.
+  ///
+  /// In en, this message translates to:
+  /// **'What this schema means'**
+  String get whatThisSchemaMeans;
+
+  /// No description provided for @howItAffectsYou.
+  ///
+  /// In en, this message translates to:
+  /// **'How it affects you'**
+  String get howItAffectsYou;
+
+  /// No description provided for @whereItComesFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Where it comes from'**
+  String get whereItComesFrom;
+
+  /// No description provided for @howToHealFromIt.
+  ///
+  /// In en, this message translates to:
+  /// **'How to heal from it'**
+  String get howToHealFromIt;
+
+  /// No description provided for @whatWouldYouLikeToKnow.
+  ///
+  /// In en, this message translates to:
+  /// **'What would you like to know?'**
+  String get whatWouldYouLikeToKnow;
+
+  /// No description provided for @low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get low;
+
+  /// No description provided for @moderate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get moderate;
+
+  /// No description provided for @significant.
+  ///
+  /// In en, this message translates to:
+  /// **'Significant'**
+  String get significant;
+
+  /// No description provided for @high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get high;
+
+  /// No description provided for @veryHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Very High'**
+  String get veryHigh;
 }
 
 class _AppLocalizationsDelegate

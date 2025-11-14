@@ -291,7 +291,6 @@
   "score": "Score",
   "localizationInfo": "Localization Info",
   "currentLocale": "Current Locale",
-  "supportedLocales": "Supported Locales",
   "defaultLanguage": "Default Language",
   "mindfulnessMeditation": "Mindfulness meditation (10-15 minutes daily)",
   "journalingAboutSchemaTriggers": "Journaling about schema triggers",

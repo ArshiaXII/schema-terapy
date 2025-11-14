@@ -641,10 +641,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get personalizedTherapyPlan => 'Personalized Therapy Plan';
 
   @override
-  String get recommendedApproach => 'Recommended Approach';
+  String get recommendedApproach => 'Recommended Approach:';
 
   @override
-  String get suggestedPractices => 'Suggested Practices';
+  String get suggestedPractices => 'Suggested Practices:';
 
   @override
   String get schemaEducation => 'Schema Education';
@@ -754,4 +754,86 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get completeDetailedAssessmentFirst =>
       'Please complete the Detailed Assessment first';
+
+  @override
+  String get basedOnAssessmentResults =>
+      'Based on your assessment results, here are recommended therapeutic approaches for your dominant schemas.';
+
+  @override
+  String get score => 'Score';
+
+  @override
+  String get localizationInfo => 'Localization Info';
+
+  @override
+  String get currentLocale => 'Current Locale';
+
+  @override
+  String get defaultLanguage => 'Default Language';
+
+  @override
+  String get mindfulnessMeditation =>
+      'Mindfulness meditation (10-15 minutes daily)';
+
+  @override
+  String get journalingAboutSchemaTriggers =>
+      'Journaling about schema triggers';
+
+  @override
+  String get cognitiveRestructuring => 'Cognitive restructuring exercises';
+
+  @override
+  String get behavioralExperiments => 'Behavioral experiments to test beliefs';
+
+  @override
+  String get schemaImageryRescripting => 'Schema imagery rescripting';
+
+  @override
+  String get yourScore => 'Your Score';
+
+  @override
+  String get askMeAnything => 'Ask me anything...';
+
+  @override
+  String schemaGreeting(String schema) {
+    return 'Hello! I\'m here to help you understand and work with $schema.';
+  }
+
+  @override
+  String basedOnTestResults(String score) {
+    return 'Based on your test results, your score for this schema is $score/6.';
+  }
+
+  @override
+  String get feelFreeToAsk => 'Feel free to ask me anything about:';
+
+  @override
+  String get whatThisSchemaMeans => 'What this schema means';
+
+  @override
+  String get howItAffectsYou => 'How it affects you';
+
+  @override
+  String get whereItComesFrom => 'Where it comes from';
+
+  @override
+  String get howToHealFromIt => 'How to heal from it';
+
+  @override
+  String get whatWouldYouLikeToKnow => 'What would you like to know?';
+
+  @override
+  String get low => 'Low';
+
+  @override
+  String get moderate => 'Moderate';
+
+  @override
+  String get significant => 'Significant';
+
+  @override
+  String get high => 'High';
+
+  @override
+  String get veryHigh => 'Very High';
 }

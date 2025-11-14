@@ -647,10 +647,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get personalizedTherapyPlan => 'Kişiselleştirilmiş Terapi Planı';
 
   @override
-  String get recommendedApproach => 'Önerilen Yaklaşım';
+  String get recommendedApproach => 'Önerilen Yaklaşım:';
 
   @override
-  String get suggestedPractices => 'Önerilen Uygulamalar';
+  String get suggestedPractices => 'Önerilen Uygulamalar:';
 
   @override
   String get schemaEducation => 'Şema Eğitimi';
@@ -760,4 +760,89 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get completeDetailedAssessmentFirst =>
       'Lütfen önce Detaylı Değerlendirmeyi tamamlayın';
+
+  @override
+  String get basedOnAssessmentResults =>
+      'Değerlendirme sonuçlarınıza göre, baskın şemalarınız için önerilen terapötik yaklaşımlar aşağıdadır.';
+
+  @override
+  String get score => 'Puan';
+
+  @override
+  String get localizationInfo => 'Yerelleştirme Bilgisi';
+
+  @override
+  String get currentLocale => 'Mevcut Dil';
+
+  @override
+  String get defaultLanguage => 'Varsayılan Dil';
+
+  @override
+  String get mindfulnessMeditation =>
+      'Farkındalık meditasyonu (günde 10-15 dakika)';
+
+  @override
+  String get journalingAboutSchemaTriggers =>
+      'Şema tetikleyicileri hakkında günlük tutma';
+
+  @override
+  String get cognitiveRestructuring =>
+      'Bilişsel yeniden yapılandırma egzersizleri';
+
+  @override
+  String get behavioralExperiments =>
+      'İnançları test etmek için davranışsal deneyler';
+
+  @override
+  String get schemaImageryRescripting => 'Şema imajeri yeniden yazma';
+
+  @override
+  String get yourScore => 'Senin Puanın';
+
+  @override
+  String get askMeAnything => 'Bana her şey sorabilirsin...';
+
+  @override
+  String schemaGreeting(String schema) {
+    return 'Merhaba! $schema hakkında bilgi sahibi olmana ve onunla çalışmana yardımcı olmak için buradayım.';
+  }
+
+  @override
+  String basedOnTestResults(String score) {
+    return 'Test sonuçlarınıza göre, bu şema için puanınız $score/6.';
+  }
+
+  @override
+  String get feelFreeToAsk =>
+      'Aşağıdaki konular hakkında bana her şey sorabilirsin:';
+
+  @override
+  String get whatThisSchemaMeans => 'Bu şema ne anlama geliyor';
+
+  @override
+  String get howItAffectsYou => 'Seni nasıl etkiliyor';
+
+  @override
+  String get whereItComesFrom => 'Nereden geliyor';
+
+  @override
+  String get howToHealFromIt => 'Ondan nasıl iyileşilir';
+
+  @override
+  String get whatWouldYouLikeToKnow => 'Ne bilmek istersin?';
+
+  @override
+  String get low => 'Düşük';
+
+  @override
+  String get moderate => 'Orta';
+
+  @override
+  String get significant => 'Önemli';
+
+  @override
+  String get high => 'Yüksek';
+
+  @override
+  String get veryHigh => 'Çok Yüksek';
 }
