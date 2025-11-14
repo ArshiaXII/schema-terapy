@@ -106,7 +106,7 @@ class _AssessmentComparisonScreenState extends State<AssessmentComparisonScreen>
     final tabs = [
       ('Timeline', CupertinoIcons.calendar),
       ('Trends', CupertinoIcons.chart_bar_alt_fill),
-      ('Comparison', CupertinoIcons.square_compare),
+      ('Comparison', CupertinoIcons.arrow_left_right),
       ('Statistics', CupertinoIcons.info_circle),
     ];
 
