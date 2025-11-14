@@ -145,6 +145,7 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildInfoCards(BuildContext context, bool isSmallScreen) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
       child: Row(
@@ -152,7 +153,7 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
           Expanded(
             child: _buildInfoCard(
               context,
-              'Difficulty to Heal',
+              l10n.difficultyToHeal,
               '${schema.difficultyToHeal}/5',
               schema.color,
               Icons.trending_up,
@@ -162,7 +163,7 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
           Expanded(
             child: _buildInfoCard(
               context,
-              'Impact Level',
+              l10n.impactLevel,
               _getImpactLevel(schema.difficultyToHeal),
               schema.color.withOpacity(0.7),
               Icons.warning_rounded,
@@ -229,7 +230,8 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildTabNavigation(BuildContext context) {
-    final tabs = ['Overview', 'Origins', 'Effects', 'Healing'];
+    final l10n = AppLocalizations.of(context)!;
+    final tabs = [l10n.overview, l10n.origins, l10n.effects, l10n.healing];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -299,12 +301,13 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildOverviewTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildContentCard(
           context,
-          'What is ${schema.nameEn}?',
+          l10n.whatIsSchema(schema.nameEn),
           schema.descriptionEn,
           schema.color,
         ),
@@ -313,12 +316,13 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildOriginsTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildContentCard(
           context,
-          'Childhood Origins',
+          l10n.childhoodOrigins,
           schema.childhoodOriginEn,
           schema.color,
         ),
@@ -327,11 +331,12 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildEffectsTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'How This Schema Affects You',
+          l10n.howThisSchemaAffectsYou,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
@@ -400,12 +405,13 @@ class _SchemaEducationScreenState extends State<SchemaEducationScreen> {
   }
 
   Widget _buildHealingTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildContentCard(
           context,
-          'Path to Healing',
+          l10n.pathToHealing,
           schema.healingApproachEn,
           schema.color,
         ),

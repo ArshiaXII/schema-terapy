@@ -257,6 +257,30 @@
   "exportAsCSV": "Export as CSV",
   "shareSummary": "Share Summary",
   "copiedToClipboard": "Copied to clipboard!",
-  "viewProgress": "View Progress"
+  "viewProgress": "View Progress",
+
+  "premiumFeatures": "Premium Features",
+  "detailedAssessmentTitle": "Detailed Assessment",
+  "detailedAssessmentSubtitle": "Deep Analysis",
+  "schemaEducationTitle": "Schema Education",
+  "schemaEducationSubtitle": "Learn More",
+  "progressTrackingTitle": "Progress Tracking",
+  "progressTrackingSubtitle": "Your Journey",
+  "recommendationsTitle": "Recommendations",
+  "recommendationsSubtitle": "Personalized",
+  "schemaChatTitle": "Schema Chat",
+  "schemaChatSubtitle": "AI Assistant",
+  "difficultyToHeal": "Difficulty to Heal",
+  "impactLevel": "Impact Level",
+  "whatIsSchema": "What is {schema}?",
+  "@whatIsSchema": {"placeholders": {"schema": {"type": "String"}}},
+  "childhoodOrigins": "Childhood Origins",
+  "howThisSchemaAffectsYou": "How This Schema Affects You",
+  "pathToHealing": "Path to Healing",
+  "overview": "Overview",
+  "origins": "Origins",
+  "effects": "Effects",
+  "healing": "Healing",
+  "completeDetailedAssessmentFirst": "Please complete the Detailed Assessment first"
 }
 

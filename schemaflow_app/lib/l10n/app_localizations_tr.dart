@@ -659,6 +659,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get assessmentProgress => 'Değerlendirme İlerleme';
 
   @override
+  String get progressTracking => 'İlerleme Takibi';
+
+  @override
   String get yourAssessmentHistory => 'Değerlendirme Geçmişiniz';
 
   @override

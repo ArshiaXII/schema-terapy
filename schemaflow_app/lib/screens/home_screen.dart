@@ -520,7 +520,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             if (userProvider.isPremium) ...[
               const SizedBox(height: AppTheme.spacingXL),
               Text(
-                'Premium Features',
+                AppLocalizations.of(context)!.premiumFeatures,
                 style: AppTheme.headlineMedium,
               ),
               const SizedBox(height: AppTheme.spacingL),
@@ -535,11 +535,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget _buildPremiumFeaturesGrid(BuildContext context) {
     final userProvider = context.read<UserProvider>();
     final premiumResult = userProvider.premiumQuestionnaireResult;
+    final l10n = AppLocalizations.of(context)!;
 
     final features = [
       {
-        'title': 'Detailed Assessment',
-        'subtitle': 'Deep Analysis',
+        'title': l10n.detailedAssessmentTitle,
+        'subtitle': l10n.detailedAssessmentSubtitle,
         'color': AppTheme.primaryTeal,
         'icon': CupertinoIcons.doc_text_search,
         'delayMs': 0,
@@ -552,8 +553,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
       },
       {
-        'title': 'Schema Education',
-        'subtitle': 'Learn More',
+        'title': l10n.schemaEducationTitle,
+        'subtitle': l10n.schemaEducationSubtitle,
         'color': AppTheme.accentGreen,
         'icon': CupertinoIcons.book,
         'delayMs': 100,
@@ -566,8 +567,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
       },
       {
-        'title': 'Progress Tracking',
-        'subtitle': 'Your Journey',
+        'title': l10n.progressTrackingTitle,
+        'subtitle': l10n.progressTrackingSubtitle,
         'color': AppTheme.warningOrange,
         'icon': CupertinoIcons.chart_bar,
         'delayMs': 200,
@@ -580,8 +581,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
       },
       {
-        'title': 'Recommendations',
-        'subtitle': 'Personalized',
+        'title': l10n.recommendationsTitle,
+        'subtitle': l10n.recommendationsSubtitle,
         'color': Colors.purple,
         'icon': CupertinoIcons.lightbulb,
         'delayMs': 300,
@@ -598,8 +599,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
       },
       {
-        'title': 'Schema Chat',
-        'subtitle': 'AI Assistant',
+        'title': l10n.schemaChatTitle,
+        'subtitle': l10n.schemaChatSubtitle,
         'color': Colors.blue,
         'icon': CupertinoIcons.chat_bubble_text,
         'delayMs': 400,
@@ -623,9 +624,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Please complete the Detailed Assessment first'),
-                duration: Duration(seconds: 2),
+              SnackBar(
+                content: Text(l10n.completeDetailedAssessmentFirst),
+                duration: const Duration(seconds: 2),
               ),
             );
           }

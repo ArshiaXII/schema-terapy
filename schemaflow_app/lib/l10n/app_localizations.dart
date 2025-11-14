@@ -1286,6 +1286,12 @@ abstract class AppLocalizations {
   /// **'Assessment Progress'**
   String get assessmentProgress;
 
+  /// No description provided for @progressTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Tracking'**
+  String get progressTracking;
+
   /// No description provided for @yourAssessmentHistory.
   ///
   /// In en, this message translates to:

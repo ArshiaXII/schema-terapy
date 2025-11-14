@@ -653,6 +653,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assessmentProgress => 'Assessment Progress';
 
   @override
+  String get progressTracking => 'Progress Tracking';
+
+  @override
   String get yourAssessmentHistory => 'Your Assessment History';
 
   @override
