@@ -40,7 +40,8 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.yourResults),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppTheme.spacingL),

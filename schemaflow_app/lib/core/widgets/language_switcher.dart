@@ -66,9 +66,9 @@ class CompactLanguageSwitcher extends StatelessWidget {
                   ),
                 );
               }).toList(),
-              onChanged: (String? newLanguageCode) {
+              onChanged: (String? newLanguageCode) async {
                 if (newLanguageCode != null) {
-                  localeProvider.setLocale(Locale(newLanguageCode));
+                  await localeProvider.setLocale(Locale(newLanguageCode));
                 }
               },
             ),
@@ -124,8 +124,8 @@ class LanguageSwitcher extends StatelessWidget {
                   return Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {
-                        localeProvider.setLocale(Locale(option.code));
+                      onTap: () async {
+                        await localeProvider.setLocale(Locale(option.code));
                       },
                       borderRadius: BorderRadius.vertical(
                         top: option == LocaleProvider.languageOptions.first
@@ -237,7 +237,7 @@ class LanguageToggleButton extends StatelessWidget {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, child) {
         return GestureDetector(
-          onTap: () => localeProvider.toggleLanguage(),
+          onTap: () async => await localeProvider.toggleLanguage(),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(

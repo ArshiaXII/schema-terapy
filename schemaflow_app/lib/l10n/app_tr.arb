@@ -238,5 +238,6 @@
   "exportAsCSV": "CSV Olarak Dışa Aktar",
   "shareSummary": "Özeti Paylaş",
   "copiedToClipboard": "Panoya kopyalandı!",
-  "viewProgress": "İlerlemeyi Görüntüle"
+  "viewProgress": "İlerlemeyi Görüntüle",
+  "progressTracking": "İlerleme Takibi"
 }
