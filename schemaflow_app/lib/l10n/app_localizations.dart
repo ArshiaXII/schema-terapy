@@ -1633,6 +1633,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Very High'**
   String get veryHigh;
+
+  /// No description provided for @testRetakeCooldown.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Retake Cooldown'**
+  String get testRetakeCooldown;
+
+  /// No description provided for @canOnlyRetakeOnceEvery24Hours.
+  ///
+  /// In en, this message translates to:
+  /// **'You can only retake this test once every 24 hours to ensure accurate results.'**
+  String get canOnlyRetakeOnceEvery24Hours;
+
+  /// No description provided for @timeRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Time remaining: {hours} hour{plural}'**
+  String timeRemaining(int hours, String plural);
+
+  /// No description provided for @lastTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Last test: {time}'**
+  String lastTest(String time);
+
+  /// No description provided for @goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
+
+  /// No description provided for @continueAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Anyway'**
+  String get continueAnyway;
+
+  /// No description provided for @exportAsPDF.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as PDF'**
+  String get exportAsPDF;
+
+  /// No description provided for @exportAsCSVFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as CSV File'**
+  String get exportAsCSVFile;
+
+  /// No description provided for @shareToX.
+  ///
+  /// In en, this message translates to:
+  /// **'Share to X (Twitter)'**
+  String get shareToX;
+
+  /// No description provided for @shareToInstagram.
+  ///
+  /// In en, this message translates to:
+  /// **'Share to Instagram'**
+  String get shareToInstagram;
+
+  /// No description provided for @shareAsTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as Template'**
+  String get shareAsTemplate;
+
+  /// No description provided for @pdfExportedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF exported successfully!'**
+  String get pdfExportedSuccessfully;
+
+  /// No description provided for @csvExportedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV exported successfully!'**
+  String get csvExportedSuccessfully;
+
+  /// No description provided for @openingXToShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening X to share your results!'**
+  String get openingXToShare;
+
+  /// No description provided for @couldNotOpenX.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open X. Please try again.'**
+  String get couldNotOpenX;
+
+  /// No description provided for @errorSharingToX.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sharing to X: {error}'**
+  String errorSharingToX(String error);
+
+  /// No description provided for @shareToInstagramInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Share to Instagram'**
+  String get shareToInstagramInstructions;
+
+  /// No description provided for @summaryHasBeenCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Your summary has been copied to clipboard!'**
+  String get summaryHasBeenCopied;
+
+  /// No description provided for @stepsToShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps to share:'**
+  String get stepsToShare;
+
+  /// No description provided for @openInstagram.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Open Instagram'**
+  String get openInstagram;
+
+  /// No description provided for @createNewStory.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Create a new Story or Post'**
+  String get createNewStory;
+
+  /// No description provided for @addSchemaImage.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Add your schema results image'**
+  String get addSchemaImage;
+
+  /// No description provided for @pasteCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Paste the summary in the caption'**
+  String get pasteCaption;
+
+  /// No description provided for @shareWithHashtags.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Share with #SchemaTherapy #MySchema'**
+  String get shareWithHashtags;
+
+  /// No description provided for @shareYourSchemaResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Your Schema Results'**
+  String get shareYourSchemaResults;
+
+  /// No description provided for @chooseTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a template to share your schema results:'**
+  String get chooseTemplate;
+
+  /// No description provided for @simpleSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Simple Summary'**
+  String get simpleSummary;
+
+  /// No description provided for @cleanAndMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean and minimal design'**
+  String get cleanAndMinimal;
+
+  /// No description provided for @detailedAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Analysis'**
+  String get detailedAnalysis;
+
+  /// No description provided for @completeSchemaBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete schema breakdown'**
+  String get completeSchemaBreakdown;
+
+  /// No description provided for @visualChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual Chart'**
+  String get visualChart;
+
+  /// No description provided for @schemaScoresVisualization.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema scores visualization'**
+  String get schemaScoresVisualization;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @templateCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Template copied! Ready to share.'**
+  String get templateCopied;
 }
 
 class _AppLocalizationsDelegate

@@ -363,7 +363,37 @@ class TherapyRecommendationsDatabase {
     ),
   };
 
-  static TherapyRecommendation? getRecommendation(String schemaId) {
+  /// Map schema ID (int) to recommendation key (String)
+  static String _mapSchemaIdToKey(int schemaId) {
+    const Map<int, String> idToKeyMap = {
+      1: 'abandonment',
+      2: 'mistrust',
+      3: 'emotional_deprivation',
+      4: 'social_isolation',
+      5: 'defectiveness',
+      6: 'dependence',
+      7: 'vulnerability',
+      8: 'enmeshment',
+      9: 'failure',
+      10: 'entitlement',
+      11: 'insufficient_self_control',
+      12: 'subjugation',
+      13: 'self_sacrifice',
+      14: 'approval_seeking',
+      15: 'negativity',
+      16: 'punitiveness',
+      17: 'emotional_inhibition',
+      18: 'unrelenting_standards',
+    };
+    return idToKeyMap[schemaId] ?? '';
+  }
+
+  static TherapyRecommendation? getRecommendation(int schemaId) {
+    final key = _mapSchemaIdToKey(schemaId);
+    return recommendations[key];
+  }
+
+  static TherapyRecommendation? getRecommendationByKey(String schemaId) {
     return recommendations[schemaId];
   }
 

@@ -845,4 +845,114 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get veryHigh => 'Çok Yüksek';
+
+  @override
+  String get testRetakeCooldown => 'Test Tekrar Çözme Bekleme Süresi';
+
+  @override
+  String get canOnlyRetakeOnceEvery24Hours =>
+      'Doğru sonuçlar almak için bu testi 24 saatte bir kez çözebilirsiniz.';
+
+  @override
+  String timeRemaining(int hours, String plural) {
+    return 'Kalan süre: $hours saat';
+  }
+
+  @override
+  String lastTest(String time) {
+    return 'Son test: $time';
+  }
+
+  @override
+  String get goBack => 'Geri Dön';
+
+  @override
+  String get continueAnyway => 'Yine de Devam Et';
+
+  @override
+  String get exportAsPDF => 'PDF Olarak Dışa Aktar';
+
+  @override
+  String get exportAsCSVFile => 'CSV Dosyası Olarak Dışa Aktar';
+
+  @override
+  String get shareToX => 'X\'te Paylaş (Twitter)';
+
+  @override
+  String get shareToInstagram => 'Instagram\'da Paylaş';
+
+  @override
+  String get shareAsTemplate => 'Şablon Olarak Paylaş';
+
+  @override
+  String get pdfExportedSuccessfully => 'PDF başarıyla dışa aktarıldı!';
+
+  @override
+  String get csvExportedSuccessfully => 'CSV başarıyla dışa aktarıldı!';
+
+  @override
+  String get openingXToShare => 'Sonuçlarınızı paylaşmak için X açılıyor!';
+
+  @override
+  String get couldNotOpenX => 'X açılamadı. Lütfen tekrar deneyin.';
+
+  @override
+  String errorSharingToX(String error) {
+    return 'X\'te paylaşırken hata: $error';
+  }
+
+  @override
+  String get shareToInstagramInstructions => 'Instagram\'da Paylaş';
+
+  @override
+  String get summaryHasBeenCopied => 'Özet panoya kopyalandı!';
+
+  @override
+  String get stepsToShare => 'Paylaşma adımları:';
+
+  @override
+  String get openInstagram => '1. Instagram\'ı açın';
+
+  @override
+  String get createNewStory => '2. Yeni bir Hikaye veya Gönderi oluşturun';
+
+  @override
+  String get addSchemaImage => '3. Şema sonuçları görüntüsünü ekleyin';
+
+  @override
+  String get pasteCaption => '4. Özeti açıklamaya yapıştırın';
+
+  @override
+  String get shareWithHashtags => '5. #SchemaTherapy #MySchema ile paylaşın';
+
+  @override
+  String get shareYourSchemaResults => 'Şema Sonuçlarınızı Paylaşın';
+
+  @override
+  String get chooseTemplate =>
+      'Şema sonuçlarınızı paylaşmak için bir şablon seçin:';
+
+  @override
+  String get simpleSummary => 'Basit Özet';
+
+  @override
+  String get cleanAndMinimal => 'Temiz ve minimal tasarım';
+
+  @override
+  String get detailedAnalysis => 'Detaylı Analiz';
+
+  @override
+  String get completeSchemaBreakdown => 'Tam şema analizi';
+
+  @override
+  String get visualChart => 'Görsel Grafik';
+
+  @override
+  String get schemaScoresVisualization => 'Şema puanları görselleştirmesi';
+
+  @override
+  String get cancel => 'İptal';
+
+  @override
+  String get templateCopied => 'Şablon kopyalandı! Paylaşmaya hazır.';
 }

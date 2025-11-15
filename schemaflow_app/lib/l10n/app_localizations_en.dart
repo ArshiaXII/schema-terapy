@@ -836,4 +836,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get veryHigh => 'Very High';
+
+  @override
+  String get testRetakeCooldown => 'Test Retake Cooldown';
+
+  @override
+  String get canOnlyRetakeOnceEvery24Hours =>
+      'You can only retake this test once every 24 hours to ensure accurate results.';
+
+  @override
+  String timeRemaining(int hours, String plural) {
+    return 'Time remaining: $hours hour$plural';
+  }
+
+  @override
+  String lastTest(String time) {
+    return 'Last test: $time';
+  }
+
+  @override
+  String get goBack => 'Go Back';
+
+  @override
+  String get continueAnyway => 'Continue Anyway';
+
+  @override
+  String get exportAsPDF => 'Export as PDF';
+
+  @override
+  String get exportAsCSVFile => 'Export as CSV File';
+
+  @override
+  String get shareToX => 'Share to X (Twitter)';
+
+  @override
+  String get shareToInstagram => 'Share to Instagram';
+
+  @override
+  String get shareAsTemplate => 'Share as Template';
+
+  @override
+  String get pdfExportedSuccessfully => 'PDF exported successfully!';
+
+  @override
+  String get csvExportedSuccessfully => 'CSV exported successfully!';
+
+  @override
+  String get openingXToShare => 'Opening X to share your results!';
+
+  @override
+  String get couldNotOpenX => 'Could not open X. Please try again.';
+
+  @override
+  String errorSharingToX(String error) {
+    return 'Error sharing to X: $error';
+  }
+
+  @override
+  String get shareToInstagramInstructions => 'Share to Instagram';
+
+  @override
+  String get summaryHasBeenCopied =>
+      'Your summary has been copied to clipboard!';
+
+  @override
+  String get stepsToShare => 'Steps to share:';
+
+  @override
+  String get openInstagram => '1. Open Instagram';
+
+  @override
+  String get createNewStory => '2. Create a new Story or Post';
+
+  @override
+  String get addSchemaImage => '3. Add your schema results image';
+
+  @override
+  String get pasteCaption => '4. Paste the summary in the caption';
+
+  @override
+  String get shareWithHashtags => '5. Share with #SchemaTherapy #MySchema';
+
+  @override
+  String get shareYourSchemaResults => 'Share Your Schema Results';
+
+  @override
+  String get chooseTemplate =>
+      'Choose a template to share your schema results:';
+
+  @override
+  String get simpleSummary => 'Simple Summary';
+
+  @override
+  String get cleanAndMinimal => 'Clean and minimal design';
+
+  @override
+  String get detailedAnalysis => 'Detailed Analysis';
+
+  @override
+  String get completeSchemaBreakdown => 'Complete schema breakdown';
+
+  @override
+  String get visualChart => 'Visual Chart';
+
+  @override
+  String get schemaScoresVisualization => 'Schema scores visualization';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get templateCopied => 'Template copied! Ready to share.';
 }
