@@ -1,0 +1,92 @@
+--- Page 1 ---
+Young -E 
+Aşağıda anne ve babanızı tarif etmekte kullanabileceğiniz tanımlamalar verilmiştir. Lütfen her tanımlamayı dikkatle okuyun ve  
+ebeveynlerinize ne kadar uyduğuna karar verin. 1 ile 6 arasında, çocukluğunuz sırasında  annenizi ve babanızı tanımlayan en 
+yüksek dereceyi seçin. Eğer sizi anne veya babanız yerine başka insanlar büyüttü ise onları da aynı şekilde derecelendirin. E ğer 
+anne veya babanızdan biri hiç olmadı ise o sütunu boş bırakın.  
+ 
+1 - Tamamı ile yanlış  
+2 - Çoğunlukla yanlış  
+3 - Uyan tarafı daha fazla  4 - Orta derecede doğru  
+5 - Çoğunlukla doğru  
+6 - Ona tamamı ile uyuyor.
+ 
+ Anne    Baba  
+1. ____    ____ Beni sevdi ve bana özel birisi gibi davrandı.  
+2. ____    ____ Bana vaktini ayırdı ve özen gösterdi.  
+3. ____    ____ Bana yol gösterdi ve olumlu yönlend irdi. 
+4. ____    ____ Beni dinledi, anladı ve duygularımızı karşılıklı paylaştık.  
+5. ____    ____ Bana karşı sıcaktı ve fiziksel olarak şefkatliydi.  
+6. ____    ____ Ben çocukken öldü veya evi terk etti.  
+7. ____    ____ Dengesizdi, ne yapacağı belli olmazdı veya alkoli kti. 
+8. ____    ____ Kardeş(ler)imi bana tercih etti.  
+9. ____    ____ Uzun süreler boyunca beni terk etti veya yalnız bıraktı.  
+10. ____    ____ Bana yalan söyledi, beni kandırdı veya bana ihanet etti.  
+11. ____    ____ Beni dövdü, duygusal veya cinsel olarak taciz etti.  
+12. ____    ____ Beni kendi amaçları için kullandı.  
+13. ____    ____ İnsanların canını yakmaktan hoşlanırdı.  
+14. ____    ____ Bir yerimi inciteceğim diye çok endişelenirdi.  
+15. ____    ____ Hasta olacağım diye çok endişelenirdi.  
+16. ____    ____ Evhamlı veya fobik/korkak bir insandı.  
+17. ____    ____ Beni aşırı korurdu.  
+18. ____    ____ Kendi kararlarıma veya yargılarıma güvenememe neden oldu  
+19. ____    ____ İşleri kendi başıma yapmama fırsat vermeden çoğu işimi o yaptı.  
+20. ____    ____ Bana hep daha çocukmuşum gibi davrandı.  
+21. ____    ____ Beni çok eleştirirdi.  
+22. ____    ____ Bana kendimi sevilmeye layık olmayan veya dışlanmış bir gibi hissettirdi.  
+23. ____    ____ Bana hep bende yanlış bir şey varmış gibi davrandı.  
+24. ____    ____ Önemli konularda kendimden  utanmama neden oldu.  
+25. ____    ____ Okulda başarılı  olmam için gereken disiplini bana  kazandırmadı.  
+26. ____    ____ Bana salakmışım veya beceriksizmişim gibi davrandı.  
+27. ____    ____ Başarılı olmamı gerçekten istemedi.  
+28. ____    ____ Hayatta başarısız olacağıma inandı.  
+29. ____    ____ Benim fikrim veya isteklerim önemsizmiş gibi davrandı.  
+30. ____    ____ Benim ihtiyaçlarımı gözetmeden kendisi ne isterse onu yaptı.  
+31. ____    ____ Hayatımı o kadar çok kontrol altında tuttu ki çok az seçme özgürlüğüm oldu.  
+32. ____    ____ Her şey onun kurallarına uymalıydı.  
+33. ____    ___ _ Aile için kendi isteklerini feda etti.  
+34. ___    ____ Günlük sorumluluklarının pek çoğunu yerine getiremiyordu ve ben her zaman kendi payıma 
+düşenden fazlasını yapmak zorunda kaldım.  
+35. ____    ____ Hep mutsuzdu ;  destek ve anlayış için hep bana dayandı.  
+36. ____    ____ Bana güçlü olduğumu ve diğer insanlara yardım etmem gerektiğini hissettirdi.  
+      Anne    Baba  
+
+--- Page 2 ---
+37. ____    ____ Kendisinden beklentisi hep çok yüksekti ve bunlar için kendini çok zorlardı.  
+38. ____    ____ Benden her zaman en iyisini yapmamı bekledi.  
+39. ____    ____ Pek çok alanda mükemmeliyetçiydi; ona göre her şey olması gerektiği gibi olmalıydı.  
+40. ____    ____ Yaptığım hiçbir şeyin yeterli olmadığını hissetmeme sebep oldu.  
+41. ____    ____ Neyin doğru neyin yanlış olduğu hakkında kesin ve katı kuralları vardı.  
+42. ____    ____ Eğer işler düzgün ve yeterince hızlı yapılmazsa sabırsızlanırdı.  
+43. ____    ____ İşlerin tam ve iyi olarak yapılmasına, eğlenme veya dinlenmekten daha fazla önem verdi.  
+44. ____    ____ Beni pek çok konuda şımarttı veya aşırı hoşgörülü davrandı.  
+45. ____    ____ Diğer insanlardan daha önemli ve daha iyi olduğumu hissettirdi.  
+46. ____    ____ Çok talepkardı; her şeyin onun istediği gibi olmasını isterdi.  
+47. ____    ____ Diğer insanlara karşı sorumluluklarımın olduğunu bana öğretmedi.  
+48. ____    ____ Bana çok az disiplin veya terbiye verdi.  
+49. ____    ____ Bana çok az kural koydu veya sorumluluk verdi.  
+50. ____    ____ Aşırı sinirlenmeme veya kontrolümü kaybetmeme izin  verirdi.  
+51. ____    ____ Disiplinsiz bir insandı.  
+52. ____    ____ Birbirimizi çok iyi  anlayacak kadar yakındık.  
+53. ____    ____  Ondan tam olarak ayrı bir birey olduğumu hissedemedim veya bireyselliğimi yeterince 
+yaşayamadım.   
+54. ____    ____ Onun çok güçlü bir insan olmasından dolayı büyürken kendi yönümü belirleyemiyordum.  
+55. ____    ____ İçimizden birinin uzağa gitmesi durumunda,  birbirimizi üzebileceğimizi hissederdim.  
+56. _____   ____ Ailemizin ekonomik sorunları ile ilgili çok endişeli idi.  
+57. ____    ____ Küçük bir hata bile yapsam kötü sonuçların ortaya çıkacağını hissettirirdi.  
+58. ____    ____ Kötümser bir bakışı açısı vardı, hep en kötüsünü beklerdi.  
+59. ____    ____ Hayatın kötü yanları veya kötü giden şeyler üzerine odaklanırdı.  
+60. ____    ____ Her şey onun kontrolü altında olmalıydı.  
+61. ____    ____ Duygularını  ifade etmekten rahatsız olurdu.  
+62. ____    ____ Hep düzenli ve tertipliydi; değişiklik yerine bilineni tercih ederdi.  
+63. ____    ____ Kızgınlığını çok nadir belli ederdi.  
+64. ____    ____ Kapalı birisiydi; duygularını çok nadir açardı.  
+65. ____    ____ Yanlış bir şey yaptığımda kızardı veya sert bir şekilde  eleştirdiği olurdu.  
+66. ____    ____ Yanlış bir şey yaptığımda beni cezalandırdığı olurdu.  
+67. ____    ____ Yanlış yaptığımda bana aptal veya salak gibi kelimelerle hitap ettiği olurdu.  
+68. ____    ____ İşler kötü gittiğinde  başkalarını  suçlardı.  
+69. ____    ____ Sosyal statü ve görünüme önem verirdi.  
+70. ____    ____ Başarı ve rekabete çok önem verirdi.  
+71. ____    ____ Başkalarının gözünde benim davranışlarımın onu ne duruma düşüreceği ile çok ilgiliydi.  
+72. ____    ____ Başarılı olduğum zaman beni daha çok sever veya bana daha çok özen gösterirdi.  
+ 

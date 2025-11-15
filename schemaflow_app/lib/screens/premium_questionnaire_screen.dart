@@ -29,6 +29,67 @@ class _PremiumQuestionnaireScreenState extends State<PremiumQuestionnaireScreen>
   void initState() {
     super.initState();
     _pageController = PageController();
+    _checkTestRetakeCooldown();
+  }
+
+  /// Check if user can retake the test and show warning if needed
+  void _checkTestRetakeCooldown() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    // Check if user has already completed a premium test
+    if (userProvider.lastPremiumTestTime != null && !userProvider.canRetakePremiumTest) {
+      final minutesRemaining = userProvider.premiumTestCooldownMinutesRemaining;
+      final hoursRemaining = (minutesRemaining / 60).ceil();
+
+      // Show warning dialog
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: const Text('Test Retake Cooldown'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'You can only retake this test once every 24 hours to ensure accurate results.',
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Time remaining: $hoursRemaining hour${hoursRemaining > 1 ? 's' : ''}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Last test: ${userProvider.lastPremiumTestTime!.toString().split('.')[0]}',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context); // Go back to previous screen
+                },
+                child: const Text('Go Back'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Allow user to continue anyway (optional)
+                },
+                child: const Text('Continue Anyway'),
+              ),
+            ],
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -101,7 +162,11 @@ class _PremiumQuestionnaireScreenState extends State<PremiumQuestionnaireScreen>
 
       // Update user provider
       if (mounted) {
-        context.read<UserProvider>().setPremiumQuestionnaireResult(result);
+        final userProvider = context.read<UserProvider>();
+        userProvider.setPremiumQuestionnaireResult(result);
+
+        // Add to assessment history (keep last 5)
+        userProvider.addAssessmentToHistory(result, assessmentType: 'premium');
 
         // Navigate to results with animation
         Navigator.of(context).pushReplacement(

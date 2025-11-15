@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
 import '../models/schema_therapy_data.dart';
+import '../models/therapy_recommendations_data.dart';
 
 /// Therapy Recommendations Screen - Personalized therapy recommendations
 class TherapyRecommendationsScreen extends StatefulWidget {
@@ -115,6 +116,9 @@ class _TherapyRecommendationsScreenState
     double score,
     AppLocalizations l10n,
   ) {
+    // Get detailed recommendations from database
+    final recommendation = TherapyRecommendationsDatabase.getRecommendation(schema.id);
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -168,24 +172,61 @@ class _TherapyRecommendationsScreenState
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            // Healing approach
-            Text(
-              l10n.recommendedApproach,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryTeal,
+            const SizedBox(height: 16),
+
+            // Detailed recommendations (5 points)
+            if (recommendation != null) ...[
+              Text(
+                'Detailed Recommendations:',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primaryTeal,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              ...recommendation.recommendations.asMap().entries.map((entry) {
+                final num = entry.key + 1;
+                final text = entry.value;
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: schema.color.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '$num',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: schema.color,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          text,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: Colors.grey[700],
+                                height: 1.5,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              schema.healingApproachEn,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    height: 1.5,
-                    color: Colors.grey[700],
-                  ),
-            ),
-            const SizedBox(height: 12),
+                );
+              }).toList(),
+              const SizedBox(height: 12),
+            ],
+
             // Suggested exercises
             Text(
               l10n.suggestedPractices,
@@ -195,7 +236,7 @@ class _TherapyRecommendationsScreenState
                   ),
             ),
             const SizedBox(height: 8),
-            ..._getSuggestedExercises(schema, l10n).map((exercise) {
+            ...(recommendation?.exercises ?? _getSuggestedExercises(schema, l10n)).map((exercise) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Row(
@@ -227,7 +268,7 @@ class _TherapyRecommendationsScreenState
   }
 
   List<String> _getSuggestedExercises(SchemaTherapySchema schema, AppLocalizations l10n) {
-    // Return suggested exercises based on schema - localized
+    // Fallback exercises if recommendation not found
     return [
       l10n.mindfulnessMeditation,
       l10n.journalingAboutSchemaTriggers,

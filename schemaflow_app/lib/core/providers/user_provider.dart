@@ -10,12 +10,16 @@ class AssessmentHistory {
   final Map<int, double> schemaScores;
   final Map<int, double> domainScores;
   final int totalQuestions;
+  final String assessmentId; // Unique ID for each assessment
+  final String assessmentType; // 'basic' or 'premium'
 
   const AssessmentHistory({
     required this.completedAt,
     required this.schemaScores,
     required this.domainScores,
     required this.totalQuestions,
+    required this.assessmentId,
+    this.assessmentType = 'basic',
   });
 }
 
@@ -85,6 +89,12 @@ class UserProvider extends ChangeNotifier {
   PremiumQuestionnaireResult? _premiumQuestionnaireResult;
   final List<AssessmentHistory> _assessmentHistory = [];
 
+  // Test retake cooldown tracking (24 hours)
+  DateTime? _lastBasicTestTime;
+  DateTime? _lastPremiumTestTime;
+  static const Duration _testCooldown = Duration(hours: 24);
+  static const int _maxHistoryItems = 5; // Keep only last 5 assessments
+
   // Getters
   User? get currentUser => _currentUser;
   bool get isAuthenticated => _isAuthenticated;
@@ -95,6 +105,42 @@ class UserProvider extends ChangeNotifier {
   PremiumQuestionnaireResult? get premiumQuestionnaireResult => _premiumQuestionnaireResult;
   List<AssessmentHistory> get assessmentHistory => _assessmentHistory;
   AssessmentHistory? get latestAssessment => _assessmentHistory.isNotEmpty ? _assessmentHistory.last : null;
+
+  // Test retake getters
+  DateTime? get lastBasicTestTime => _lastBasicTestTime;
+  DateTime? get lastPremiumTestTime => _lastPremiumTestTime;
+
+  /// Check if user can retake basic test
+  bool get canRetakeBasicTest {
+    if (_lastBasicTestTime == null) return true;
+    final now = DateTime.now();
+    return now.difference(_lastBasicTestTime!) >= _testCooldown;
+  }
+
+  /// Check if user can retake premium test
+  bool get canRetakePremiumTest {
+    if (_lastPremiumTestTime == null) return true;
+    final now = DateTime.now();
+    return now.difference(_lastPremiumTestTime!) >= _testCooldown;
+  }
+
+  /// Get remaining cooldown time for basic test in minutes
+  int get basicTestCooldownMinutesRemaining {
+    if (_lastBasicTestTime == null) return 0;
+    final now = DateTime.now();
+    final elapsed = now.difference(_lastBasicTestTime!);
+    if (elapsed >= _testCooldown) return 0;
+    return ((_testCooldown - elapsed).inMinutes).ceil();
+  }
+
+  /// Get remaining cooldown time for premium test in minutes
+  int get premiumTestCooldownMinutesRemaining {
+    if (_lastPremiumTestTime == null) return 0;
+    final now = DateTime.now();
+    final elapsed = now.difference(_lastPremiumTestTime!);
+    if (elapsed >= _testCooldown) return 0;
+    return ((_testCooldown - elapsed).inMinutes).ceil();
+  }
 
   // Authentication methods
   Future<void> signIn(String email, String password) async {
@@ -269,21 +315,56 @@ class UserProvider extends ChangeNotifier {
   }
 
   // Assessment history methods
-  void addAssessmentToHistory(PremiumQuestionnaireResult result) {
+  void addAssessmentToHistory(PremiumQuestionnaireResult result, {String assessmentType = 'premium'}) {
+    // Generate unique assessment ID
+    final assessmentId = '${DateTime.now().millisecondsSinceEpoch}_${_assessmentHistory.length}';
+
+    // Add new assessment
     _assessmentHistory.add(
       AssessmentHistory(
         completedAt: result.completedAt,
         schemaScores: result.schemaScores,
         domainScores: result.domainScores,
         totalQuestions: result.totalQuestions,
+        assessmentId: assessmentId,
+        assessmentType: assessmentType,
       ),
     );
+
+    // Keep only last 5 assessments
+    if (_assessmentHistory.length > _maxHistoryItems) {
+      _assessmentHistory.removeAt(0);
+    }
+
+    // Update test time based on assessment type
+    if (assessmentType == 'basic') {
+      _lastBasicTestTime = DateTime.now();
+    } else if (assessmentType == 'premium') {
+      _lastPremiumTestTime = DateTime.now();
+    }
+
     notifyListeners();
   }
 
   void clearAssessmentHistory() {
     _assessmentHistory.clear();
+    _lastBasicTestTime = null;
+    _lastPremiumTestTime = null;
     notifyListeners();
+  }
+
+  /// Get assessment by ID
+  AssessmentHistory? getAssessmentById(String assessmentId) {
+    try {
+      return _assessmentHistory.firstWhere((a) => a.assessmentId == assessmentId);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Get all assessments of a specific type
+  List<AssessmentHistory> getAssessmentsByType(String type) {
+    return _assessmentHistory.where((a) => a.assessmentType == type).toList();
   }
 
   // Helper methods

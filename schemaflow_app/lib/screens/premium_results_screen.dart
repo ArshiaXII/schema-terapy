@@ -468,8 +468,237 @@ class _PremiumResultsScreenState extends State<PremiumResultsScreen> {
                 Navigator.pop(context);
               },
             ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.share_outlined),
+              title: const Text('Share to X (Twitter)'),
+              onTap: () async {
+                Navigator.pop(context);
+                await _shareToX(context, result, userProvider);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.share_outlined),
+              title: const Text('Share to Instagram'),
+              onTap: () async {
+                Navigator.pop(context);
+                await _shareToInstagram(context, result, userProvider);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.image),
+              title: const Text('Share as Template'),
+              onTap: () {
+                Navigator.pop(context);
+                _showShareTemplate(context, result, userProvider);
+              },
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Share results to X (Twitter)
+  Future<void> _shareToX(
+    BuildContext context,
+    PremiumQuestionnaireResult result,
+    UserProvider userProvider,
+  ) async {
+    try {
+      final summary = ExportService.generateShareableSummary(
+        result,
+        userName: userProvider.currentUser?.name ?? 'User',
+      );
+
+      // Create X share URL
+      final text = Uri.encodeComponent(
+        'I just completed my Schema Therapy assessment on MySchema! 🧠\n\n$summary\n\n#SchemaTherapy #MentalHealth #MySchema'
+      );
+      final xUrl = 'https://twitter.com/intent/tweet?text=$text';
+
+      if (await canLaunchUrl(Uri.parse(xUrl))) {
+        await launchUrl(Uri.parse(xUrl), mode: LaunchMode.externalApplication);
+        _showSuccessMessage(context, 'Opening X to share your results!');
+      } else {
+        _showErrorMessage(context, 'Could not open X. Please try again.');
+      }
+    } catch (e) {
+      _showErrorMessage(context, 'Error sharing to X: $e');
+    }
+  }
+
+  /// Share results to Instagram
+  Future<void> _shareToInstagram(
+    BuildContext context,
+    PremiumQuestionnaireResult result,
+    UserProvider userProvider,
+  ) async {
+    try {
+      final summary = ExportService.generateShareableSummary(
+        result,
+        userName: userProvider.currentUser?.name ?? 'User',
+      );
+
+      // Instagram doesn't support direct URL sharing, so we'll copy to clipboard
+      // and show instructions
+      _copyToClipboard(context, summary);
+
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Share to Instagram'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Your summary has been copied to clipboard!'),
+                const SizedBox(height: 12),
+                const Text('Steps to share:'),
+                const SizedBox(height: 8),
+                const Text('1. Open Instagram'),
+                const Text('2. Create a new Story or Post'),
+                const Text('3. Add your schema results image'),
+                const Text('4. Paste the summary in the caption'),
+                const Text('5. Share with #SchemaTherapy #MySchema'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      _showErrorMessage(context, 'Error preparing Instagram share: $e');
+    }
+  }
+
+  /// Show shareable template options
+  void _showShareTemplate(
+    BuildContext context,
+    PremiumQuestionnaireResult result,
+    UserProvider userProvider,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Share Your Schema Results'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Choose a template to share your schema results:'),
+            const SizedBox(height: 16),
+            _buildTemplateOption(
+              context,
+              'Simple Summary',
+              'Clean and minimal design',
+              () => _generateTemplate(context, result, 'simple'),
+            ),
+            const SizedBox(height: 8),
+            _buildTemplateOption(
+              context,
+              'Detailed Analysis',
+              'Complete schema breakdown',
+              () => _generateTemplate(context, result, 'detailed'),
+            ),
+            const SizedBox(height: 8),
+            _buildTemplateOption(
+              context,
+              'Visual Chart',
+              'Schema scores visualization',
+              () => _generateTemplate(context, result, 'chart'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build template option widget
+  Widget _buildTemplateOption(
+    BuildContext context,
+    String title,
+    String description,
+    VoidCallback onTap,
+  ) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[300]!),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              description,
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Generate shareable template
+  void _generateTemplate(
+    BuildContext context,
+    PremiumQuestionnaireResult result,
+    String templateType,
+  ) {
+    Navigator.pop(context);
+
+    String template = '';
+
+    if (templateType == 'simple') {
+      template = ExportService.generateShareableSummary(
+        result,
+        userName: 'User',
+      );
+    } else if (templateType == 'detailed') {
+      template = ExportService.exportAsText(
+        result,
+        userName: 'User',
+      );
+    } else if (templateType == 'chart') {
+      template = 'My Schema Therapy Results:\n\n';
+      result.schemaScores.forEach((schemaId, score) {
+        final schema = SchemaTherapyDatabase.getSchemaById(schemaId);
+        if (schema != null) {
+          template += '${schema.nameEn}: ${'█' * (score.toInt())} ${score.toStringAsFixed(1)}/6\n';
+        }
+      });
+    }
+
+    _copyToClipboard(context, template);
+    _showSuccessMessage(context, 'Template copied! Ready to share.');
+  }
+
+  void _showErrorMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 3),
       ),
     );
   }
