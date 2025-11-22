@@ -1,0 +1,62 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow - MySchema
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: Codemagic
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.arshiamedia.myschema
+      vars:
+        XCODE_WORKSPACE: "Runner.xcworkspace"
+        XCODE_SCHEME: "Runner"
+        APP_STORE_APPLE_ID: YOUR_APP_ID_HERE  # App Store Connect → App Information → Apple ID
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Clean Flutter build cache
+        script: |
+          cd schemaflow_app
+          flutter clean
+          rm -rf ios/Pods
+          rm -rf ios/Podfile.lock
+          rm -rf .dart_tool
+          rm -rf build
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Get Flutter packages
+        script: |
+          cd schemaflow_app
+          flutter packages pub get
+      - name: Install pods
+        script: |
+          cd schemaflow_app/ios
+          pod install
+      - name: Flutter build ipa
+        script: |
+          cd schemaflow_app
+          flutter build ipa --release \
+            --build-name=1.0.$BUILD_NUMBER \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - schemaflow_app/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - schemaflow_app/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - 82704919+ArshiaXII@users.noreply.github.com
+        notify:
+          success: true
+          failure: true
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        beta_groups:
+          - Internal Testers
+        submit_to_app_store: false
+

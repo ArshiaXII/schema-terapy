@@ -35,8 +35,10 @@ load_dotenv()
 # Configuration
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")  # Load from environment variable
 MY_APP_SECRET_KEY = os.getenv("MY_APP_SECRET_KEY")  # Load API secret key from environment
-SOURCE_FOLDER = "kaynaklarim"  # Folder containing PDF and DOCX files
-VECTOR_DB_PATH = "chroma_db"  # Path for persistent ChromaDB storage
+# Allow override via env; default to 'kaynaklarim'
+SOURCE_FOLDER = os.getenv("SOURCE_FOLDER", "kaynaklarim")  # Folder containing PDF and DOCX files
+# On Render free, use /tmp for ephemeral writes; allow override
+VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH", "/tmp/chroma_db")  # Path for ChromaDB storage
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screenshot Helper - MySchema</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .device-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        h2 {
+            color: #1a237e;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #1a237e;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0d47a1;
+        }
+        .btn-secondary {
+            background: #00897b;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #00695c;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .info strong {
+            color: #1a237e;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 MySchema Screenshot Helper</h1>
+        <p class="subtitle">App Store ekran görüntüleri için doğru boyutlarda pencere aç</p>
+
+        <div class="device-section">
+            <h2>📱 iPhone 6.5-inch (1242 x 2688)</h2>
+            <div class="button-group">
+                <button class="btn-primary" onclick="openWindow(1242, 2688, '/?lang=en')">
+                    🇬🇧 Ana Sayfa (EN)
+                </button>
+                <button class="btn-primary" onclick="openWindow(1242, 2688, '/?lang=tr')">
+                    🇹🇷 Ana Sayfa (TR)
+                </button>
+                <button class="btn-secondary" onclick="openWindow(1242, 2688, '/?screen=paywall&lang=en')">
+                    🇬🇧 Paywall (EN)
+                </button>
+                <button class="btn-secondary" onclick="openWindow(1242, 2688, '/?screen=paywall&lang=tr')">
+                    🇹🇷 Paywall (TR)
+                </button>
+            </div>
+        </div>
+
+        <div class="device-section">
+            <h2>📱 iPad 13-inch (2048 x 2732)</h2>
+            <div class="button-group">
+                <button class="btn-primary" onclick="openWindow(2048, 2732, '/?lang=en')">
+                    🇬🇧 Ana Sayfa (EN)
+                </button>
+                <button class="btn-primary" onclick="openWindow(2048, 2732, '/?lang=tr')">
+                    🇹🇷 Ana Sayfa (TR)
+                </button>
+                <button class="btn-secondary" onclick="openWindow(2048, 2732, '/?screen=paywall&lang=en')">
+                    🇬🇧 Paywall (EN)
+                </button>
+                <button class="btn-secondary" onclick="openWindow(2048, 2732, '/?screen=paywall&lang=tr')">
+                    🇹🇷 Paywall (TR)
+                </button>
+            </div>
+        </div>
+
+        <div class="info">
+            <strong>📝 Kullanım Talimatları:</strong><br>
+            1. Yukarıdaki butonlardan birine tıkla → Yeni pencere açılır<br>
+            2. Yeni pencerede <code>F12</code> ile DevTools'u aç<br>
+            3. DevTools → ⋮ (üç nokta) → "Capture screenshot"<br>
+            4. Veya Windows'ta <code>Win + Shift + S</code> ile Snipping Tool kullan<br>
+            5. Ekran görüntüsü tam olarak istenen boyutta olacak!<br><br>
+            
+            <strong>💡 İpucu:</strong> Eğer boyut hâlâ yanlışsa, tarayıcı zoom seviyesini %100 yap (Ctrl+0)
+        </div>
+    </div>
+
+    <script>
+        function openWindow(width, height, path) {
+            // Tarayıcı chrome/toolbar yüksekliğini hesaba kat
+            const chromeHeight = 85; // Tarayıcı üst bar + adres çubuğu
+            const chromeWidth = 16;  // Tarayıcı kenar boşlukları
+            
+            const windowWidth = width + chromeWidth;
+            const windowHeight = height + chromeHeight;
+            
+            const left = (screen.width - windowWidth) / 2;
+            const top = (screen.height - windowHeight) / 2;
+            
+            const features = `width=${windowWidth},height=${windowHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+            
+            // Flutter uygulamasının çalıştığı port
+            const baseUrl = window.location.origin.replace('screenshot_helper.html', '');
+            
+            window.open(baseUrl + path, '_blank', features);
+        }
+    </script>
+</body>
+</html>
+

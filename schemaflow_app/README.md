@@ -1,4 +1,4 @@
-# SchemaFlow: Your Path to Self-Understanding
+# MySchema
 
 A comprehensive Flutter mobile application for schema therapy assessment and analysis, designed to help users identify their core personality schemas through scientifically-backed questionnaires and receive personalized AI-powered insights.
 
@@ -85,7 +85,7 @@ lib/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd schemaflow_app
+   cd myschema_app
    ```
 
 2. **Install dependencies**
@@ -223,4 +223,4 @@ For questions or support, please refer to the Flutter documentation or create an
 
 ---
 
-**SchemaFlow** - Empowering self-understanding through technology 🧠✨
+**MySchema** - Empowering self-understanding through technology 🧠✨
